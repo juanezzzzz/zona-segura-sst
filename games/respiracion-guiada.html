@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Respiración Guiada - Sesiones de box breathing para reducir el estrés" />
+  <title>Respiración Guiada · Zona Segura</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-sena.png" />
+  <link rel="stylesheet" href="../styles/global.css" />
+  <link rel="stylesheet" href="../styles/global-progress.css" />
+  <link rel="stylesheet" href="../styles/respiracion-guiada.css" />
+</head>
+<body class="respiracion" data-progress-stage="actividad">
+  <!-- ============== HEADER ============== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <div class="site-header__brand">
+        <span class="site-header__logo" aria-hidden="true">
+          <img src="../assets/images/logo-sena.png" alt="Logo SENA" class="site-header__logo-img" />
+        </span>
+        <div>
+          <h1 class="site-header__title">Respiración Guiada</h1>
+          <p class="site-header__subtitle">Calma cuerpo y mente con box breathing</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="screen rg-screen">
+    <div class="container rg-container">
+
+      <!-- ============== PANTALLA: INICIO ============== -->
+      <section id="rg-screen-start" class="rg-card rg-screen-panel fade-in" aria-labelledby="rg-title">
+        <div class="rg-start__icon" aria-hidden="true">🌬️</div>
+        <h2 id="rg-title" class="rg-start__title">Respiración Guiada</h2>
+        <p class="rg-start__description">
+          Sigue el círculo. Inhala mientras crece, exhala mientras se encoge.
+          Cinco ciclos para calmar cuerpo y mente.
+        </p>
+
+        <ul class="rg-start__technique" aria-label="Fases de la técnica">
+          <li><strong>4s</strong>Inhala</li>
+          <li><strong>4s</strong>Sostén</li>
+          <li><strong>6s</strong>Exhala</li>
+          <li><strong>2s</strong>Descansa</li>
+        </ul>
+
+        <div class="rg-start__actions">
+          <button id="rg-btn-start" class="btn btn-primary btn-large">Comenzar sesión</button>
+        </div>
+        <p class="text-small text-muted rg-start__hint">
+          💡 Busca un lugar tranquilo y respira de forma natural por la nariz.
+        </p>
+      </section>
+
+      <!-- ============== PANTALLA: EJERCICIO ============== -->
+      <section id="rg-screen-exercise" class="rg-card rg-screen-panel hidden" aria-labelledby="rg-circle-phase">
+        <!-- Top: progreso y puntuación -->
+        <div class="rg-exercise__top">
+          <div class="rg-exercise__progress-info">
+            <span class="badge">Box 4-4-6-2</span>
+            <span class="text-small text-muted" id="rg-cycle-counter">Ciclo 1 de 5</span>
+          </div>
+          <div class="rg-exercise__score" aria-label="Puntuación actual">
+            <span aria-hidden="true">⭐</span>
+            <span id="rg-score">0</span>
+          </div>
+        </div>
+
+        <div class="progress-bar rg-exercise__mini-bar" aria-hidden="true">
+          <div class="progress-bar-fill" id="rg-mini-fill" style="width:0%"></div>
+        </div>
+
+        <!-- Círculo central expandible -->
+        <div class="rg-circle-wrap" role="img" aria-label="Visualización de la respiración">
+          <div class="rg-circle-ring rg-circle-ring--outer" aria-hidden="true"></div>
+          <div class="rg-circle-ring rg-circle-ring--mid" aria-hidden="true"></div>
+          <div id="rg-circle" class="rg-circle" aria-hidden="true"></div>
+          <div class="rg-circle-content">
+            <div id="rg-circle-phase" class="rg-circle-phase">Inhala</div>
+            <div id="rg-circle-chrono" class="rg-circle-chrono">4</div>
+            <div id="rg-circle-hint" class="text-small" style="opacity:0.9; max-width:220px;">
+              Inhala lentamente por la nariz
+            </div>
+          </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="rg-exercise__controls">
+          <button id="btn-pause" class="btn btn-secondary">⏸ Pausar</button>
+          <button id="btn-resume" class="btn btn-primary hidden">▶ Reanudar</button>
+          <button id="btn-exit" class="btn btn-ghost hidden">✕ Salir</button>
+        </div>
+      </section>
+
+      <!-- ============== PANTALLA: FINAL ============== -->
+      <section id="rg-screen-final" class="rg-card rg-screen-panel hidden" aria-labelledby="rg-final-title">
+        <div class="rg-final__icon" aria-hidden="true">🧘</div>
+        <h2 id="rg-final-title" class="rg-final__title">¡Sesión completada!</h2>
+        <p class="rg-final__message" id="rg-final-message">
+          Has completado tu rutina de respiración.
+        </p>
+
+        <div class="rg-final__stats">
+          <div class="rg-stat">
+            <div class="rg-stat__icon" aria-hidden="true">⭐</div>
+            <div class="rg-stat__value" id="rg-final-score">0</div>
+            <div class="rg-stat__label">Puntos</div>
+          </div>
+          <div class="rg-stat">
+            <div class="rg-stat__icon" aria-hidden="true">🔄</div>
+            <div class="rg-stat__value" id="rg-final-cycles">0/5</div>
+            <div class="rg-stat__label">Ciclos</div>
+          </div>
+          <div class="rg-stat">
+            <div class="rg-stat__icon" aria-hidden="true">⏱️</div>
+            <div class="rg-stat__value" id="rg-final-time">0:00</div>
+            <div class="rg-stat__label">Tiempo</div>
+          </div>
+        </div>
+
+        <div class="rg-calm" aria-label="Nivel de calma estimado">
+          <div class="rg-calm__label">
+            <span>Calma estimada</span>
+            <span id="rg-final-calm-value">0%</span>
+          </div>
+          <div class="rg-calm__bar">
+            <div id="rg-final-calm-fill" class="rg-calm__fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <p class="rg-final__tip">
+          💬 Practica a diario. Unos minutos de respiración consciente pueden transformar tu estado de ánimo.
+        </p>
+
+        <div class="rg-final__actions">
+          <a href="zona-segura-sena/index.html" id="rg-btn-continue" class="btn btn-primary btn-large">Continuar ahora →</a>
+          <button id="rg-btn-replay" class="btn btn-secondary btn-large">Repetir sesión</button>
+        </div>
+        <p class="rg-final__autocontinue" id="rg-autocontinue-msg" aria-live="polite">
+          Continuando automáticamente en <span id="rg-autocontinue-count">5</span> s…
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../scripts/global-progress.js" defer></script>
+  <script src="global-score.js" defer></script>
+  <script src="../scripts/respiracion-guiada/patterns.js" defer></script>
+  <script src="../scripts/respiracion-guiada/game.js" defer></script>
+  <script src="../scripts/respiracion-guiada/main.js" defer></script>
+  <script defer>
+    document.getElementById('rg-btn-continue')?.addEventListener('click', () => {
+      if (window.ProgressTracker) ProgressTracker.complete('actividad');
+    });
+
+    // Continuación automática hacia Zona Segura al completar el módulo.
+    (() => {
+      const finalScreen = document.getElementById('rg-screen-final');
+      const countEl = document.getElementById('rg-autocontinue-count');
+      const msgEl = document.getElementById('rg-autocontinue-msg');
+      const continueBtn = document.getElementById('rg-btn-continue');
+      if (!finalScreen || !countEl || !continueBtn) return;
+
+      let seconds = 5;
+      let timer = null;
+      const stop = () => { if (timer) clearInterval(timer); };
+      const tick = () => {
+        seconds -= 1;
+        if (seconds <= 0) {
+          stop();
+          if (window.ProgressTracker) ProgressTracker.complete('actividad');
+          window.location.href = continueBtn.getAttribute('href');
+          return;
+        }
+        countEl.textContent = String(seconds);
+      };
+      const start = () => {
+        if (timer) return;
+        seconds = 5;
+        countEl.textContent = String(seconds);
+        if (msgEl) msgEl.hidden = false;
+        timer = setInterval(tick, 1000);
+      };
+
+      continueBtn.addEventListener('click', stop);
+      document.getElementById('rg-btn-replay')?.addEventListener('click', stop);
+
+      const observer = new MutationObserver(() => {
+        if (!finalScreen.classList.contains('hidden')) start();
+        else stop();
+      });
+      observer.observe(finalScreen, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+</body>
+</html>
