@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introducción · Zona Segura</title>
+<link rel="icon" type="image/png" href="../assets/images/logo-sena.png" />
+<link rel="stylesheet" href="../styles/global-progress.css" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --ink: #14171A;
+  --ink-2: #1D2229;
+  --ink-3: #262C34;
+  --paper: #F5F2E9;
+  --paper-dim: #E7E2D3;
+  --green: #39A900;
+  --green-dark: #256B00;
+  --green-light: #E9F5DC;
+  --orange: #FF8A00;
+  --blue: #0B7FD6;
+  --yellow: #FFC400;
+  --text-dim: #A6ACB2;
+  --text-dim-2: #6B7076;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--ink);
+  color: var(--paper);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.hazard-rule {
+  height: 8px;
+  width: 100%;
+  background: repeating-linear-gradient(135deg, var(--yellow) 0 18px, var(--ink) 18px 36px);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 6vw;
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--paper);
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+.nav__logo { width: 44px; height: 44px; flex-shrink: 0; display: block; object-fit: contain; }
+
+.nav__back {
+  font-family: 'Space Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text-dim-2);
+  letter-spacing: 0.02em;
+  transition: color 0.15s ease;
+}
+.nav__back:hover { color: var(--paper); }
+
+.intro {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 40px 6vw 100px;
+  text-align: center;
+}
+
+.intro__eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+
+.intro__title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.intro__title .accent { color: var(--green); }
+
+.intro__subtitle {
+  margin: 22px auto 0;
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.stages {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.stage {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: var(--ink-3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px 22px;
+}
+
+.stage__num {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--green);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stage__body h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stage__body p {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.intro__actions {
+  margin-top: 48px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--green);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 16px;
+  padding: 16px 34px;
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(57, 169, 0, 0.35); }
+
+.intro__note {
+  margin-top: 18px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.03em;
+  color: var(--text-dim-2);
+}
+
+@media (max-width: 640px) {
+  .intro { padding: 20px 6vw 70px; }
+}
+
+/* ==========================================================
+   CARNET DE PARTICIPANTE (antes vivía solo en Zona Segura SENA;
+   ahora se captura una sola vez, al inicio de todo el recorrido)
+   ========================================================== */
+
+.identity {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.carnet {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: #FFFFFF;
+  border-radius: 22px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  padding: 22px 22px 26px;
+  border: 2px solid var(--green-light);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  text-align: left;
+}
+
+.carnet--filled {
+  box-shadow: 0 16px 40px rgba(57, 169, 0, 0.30);
+  border-color: var(--green);
+}
+
+.carnet__clip {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 54px;
+  height: 20px;
+  background: var(--ink-3);
+  border-radius: 6px;
+  opacity: 0.85;
+}
+
+.carnet__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.carnet__org {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green-dark);
+  letter-spacing: 0.4px;
+}
+
+.carnet__badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: var(--orange);
+  padding: 4px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+}
+
+.carnet__body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.carnet__photo {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carnet__photo svg { width: 100%; height: 100%; }
+
+.carnet__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.carnet__label {
+  font-size: 11px;
+  color: #6B7076;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.carnet__name {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 19px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carnet__role {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 13px;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carnet__stripe {
+  margin-top: 18px;
+  height: 8px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(45deg,
+      var(--green),
+      var(--green) 8px,
+      var(--green-dark) 8px,
+      var(--green-dark) 16px);
+  opacity: 0.9;
+}
+
+/* Formulario */
+.identity-form {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.identity-form__label {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--paper);
+  padding-left: 4px;
+}
+
+.identity-form__input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 17px;
+  border-radius: 10px;
+  border: 2px solid var(--ink-3);
+  background: var(--ink-2);
+  color: var(--paper);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.identity-form__input::placeholder { color: var(--text-dim-2); }
+
+.identity-form__input:focus {
+  border-color: var(--green);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.18);
+}
+
+.identity-form__input:valid { border-color: var(--green); }
+
+.identity-form__input:invalid:not(:placeholder-shown) { border-color: #E2574C; }
+
+.identity-form__hint {
+  color: var(--text-dim-2);
+  font-size: 0.85em;
+  margin-top: 0.35rem;
+  display: block;
+}
+
+.btn-primary--form {
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.btn-primary:disabled {
+  background: #4A5D42;
+  color: rgba(245, 242, 233, 0.6);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+</style>
+</head>
+<body data-progress-stage="epp">
+
+<div class="hazard-rule"></div>
+
+<nav class="nav">
+  <div class="nav__brand">
+    <img src="../assets/images/logo-sena.png" alt="Logo SENA" class="nav__logo" />
+    ZONA SEGURA
+  </div>
+  <a href="../index.html" class="nav__back">← Volver al inicio</a>
+</nav>
+
+<main class="intro">
+  <p class="intro__eyebrow">SENA · Seguridad y Salud en el Trabajo</p>
+  <h1 class="intro__title">Antes de<br><span class="accent">empezar</span></h1>
+  <p class="intro__subtitle">
+    Esto no es una serie de juegos sueltos: es una sola capacitación con un recorrido fijo.
+    Vas a pasar por 4 etapas seguidas y al final vas a ver tu resultado completo.
+  </p>
+
+  <div class="stages">
+    <div class="stage">
+      <span class="stage__num">1</span>
+      <div class="stage__body">
+        <h3>Viste al trabajador</h3>
+        <p>Elige el área de trabajo y coloca los Elementos de Protección Personal correctos en cada zona del cuerpo.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <span class="stage__num">2</span>
+      <div class="stage__body">
+        <h3>Elige tu camino: Vocal Hero o Respiración</h3>
+        <p>Escoges uno de los dos ejercicios: voz con detección en tiempo real, o respiración guiada para bajar el estrés.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <span class="stage__num">3</span>
+      <div class="stage__body">
+        <h3>Zona Segura SENA</h3>
+        <p>Cinta transportadora, memorama y ruleta con penitencia sobre los 3 ejes de la SST.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <span class="stage__num">4</span>
+      <div class="stage__body">
+        <h3>Resultados finales</h3>
+        <p>Un resumen único con tu puntaje total, tiempo y logros de toda la capacitación.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="identity">
+    <!-- Carnet de participante -->
+    <div class="carnet" id="carnet">
+      <div class="carnet__clip" aria-hidden="true"></div>
+      <div class="carnet__top">
+        <span class="carnet__org">SENA · CAFEC CASANARE</span>
+        <span class="carnet__badge" id="carnet-badge">&nbsp;</span>
+      </div>
+
+      <div class="carnet__body">
+        <div class="carnet__photo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="24" r="12" fill="var(--green-light)" stroke="var(--green)" stroke-width="2.5" />
+            <path d="M10 56C10 44.5 19.9 36 32 36C44.1 36 54 44.5 54 56" stroke="var(--green)" stroke-width="2.5"
+              stroke-linecap="round" fill="var(--green-light)" />
+          </svg>
+        </div>
+
+        <div class="carnet__info">
+          <span class="carnet__label">Participante SENA</span>
+          <span class="carnet__name" id="carnet-name-preview">&nbsp;</span>
+          <span class="carnet__role" id="carnet-role-preview">&nbsp;</span>
+        </div>
+      </div>
+
+      <div class="carnet__stripe" aria-hidden="true"></div>
+    </div>
+
+    <!-- Formulario de identidad -->
+    <form class="identity-form" id="identity-form" novalidate>
+      <label class="identity-form__label" for="player-name">¿Cómo te llamas?</label>
+      <input class="identity-form__input" type="text" id="player-name" name="player-name"
+        placeholder="Escribe tu nombre" maxlength="20" minlength="2" pattern="[a-záéíóúñA-ZÁÉÍÓÚÑ '\-]+"
+        inputmode="text" autocomplete="off" spellcheck="true" required aria-required="true"
+        aria-describedby="name-hint">
+      <small id="name-hint" class="identity-form__hint">Mínimo 2 caracteres, máximo 20. Solo se permiten letras.</small>
+
+      <label class="identity-form__label" for="player-role" style="margin-top: 8px;">¿Cuál es tu función en el
+        SENA?</label>
+      <input class="identity-form__input" type="text" id="player-role" name="player-role"
+        placeholder="Escribe tu función" maxlength="20" minlength="2" pattern="[a-záéíóúñA-ZÁÉÍÓÚÑ '\-]+"
+        inputmode="text" autocomplete="off" spellcheck="true" required aria-required="true"
+        aria-describedby="role-hint">
+      <small id="role-hint" class="identity-form__hint">Ejemplo: Aprendiz, Instructor, Funcionario, etc.</small>
+
+      <button class="btn-primary btn-primary--form" type="submit" id="start-btn" disabled>
+        Comenzar →
+      </button>
+    </form>
+
+    <p class="intro__note">Etapa 1 de 4 · Viste al trabajador</p>
+  </div>
+</main>
+
+<script src="../scripts/player-identity.js"></script>
+<script src="../scripts/global-progress.js" defer></script>
+<script>
+  (() => {
+    'use strict';
+
+    const nameInput = document.getElementById('player-name');
+    const roleInput = document.getElementById('player-role');
+    const namePreview = document.getElementById('carnet-name-preview');
+    const rolePreview = document.getElementById('carnet-role-preview');
+    const badge = document.getElementById('carnet-badge');
+    const carnet = document.getElementById('carnet');
+    const startBtn = document.getElementById('start-btn');
+    const identityForm = document.getElementById('identity-form');
+
+    function updateStartButton() {
+      const hasName = nameInput.value.trim().length > 0;
+      const hasRole = roleInput.value.trim().length > 0;
+      startBtn.disabled = !(hasName && hasRole);
+    }
+
+    // ---------- Pre-llenar con datos de una sesión anterior ----------
+    const existing = window.PlayerIdentity ? window.PlayerIdentity.get() : { name: '', role: '' };
+    if (existing.name) {
+      nameInput.value = existing.name;
+      namePreview.textContent = existing.name;
+      carnet.classList.add('carnet--filled');
+    }
+    if (existing.role) {
+      roleInput.value = existing.role;
+      const roleMayuscula = existing.role.toUpperCase();
+      rolePreview.textContent = roleMayuscula;
+      badge.textContent = roleMayuscula;
+      carnet.classList.add('carnet--filled');
+    }
+    updateStartButton();
+
+    // ---------- Carnet en vivo — Nombre ----------
+    nameInput.addEventListener('input', () => {
+      const value = nameInput.value.trim();
+      if (value.length > 0) {
+        namePreview.textContent = value;
+        carnet.classList.add('carnet--filled');
+      } else {
+        namePreview.innerHTML = '&nbsp;';
+        if (!roleInput.value.trim()) carnet.classList.remove('carnet--filled');
+      }
+      updateStartButton();
+    });
+
+    // ---------- Carnet en vivo — Función ----------
+    roleInput.addEventListener('input', () => {
+      const value = roleInput.value.trim();
+      if (value.length > 0) {
+        const roleMayuscula = value.toUpperCase();
+        rolePreview.textContent = roleMayuscula;
+        badge.textContent = roleMayuscula;
+        carnet.classList.add('carnet--filled');
+      } else {
+        rolePreview.innerHTML = '&nbsp;';
+        badge.innerHTML = '&nbsp;';
+        if (!nameInput.value.trim()) carnet.classList.remove('carnet--filled');
+      }
+      updateStartButton();
+    });
+
+    // ---------- Envío del formulario ----------
+    identityForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const nameValue = nameInput.value.trim();
+      const roleValue = roleInput.value.trim();
+      if (nameValue.length === 0 || roleValue.length === 0) return;
+
+      if (window.PlayerIdentity) window.PlayerIdentity.set(nameValue, roleValue);
+      window.location.href = 'epp.html';
+    });
+  })();
+</script>
+</body>
+</html>
