@@ -1,0 +1,184 @@
+/* ============================================
+   ZONA SEGURA · Estilos del sistema de puntos
+   - Badge global en el header de cada módulo
+   - Mini-sección "Puntos globales" en el home
+   ============================================ */
+
+:root {
+  --gs-badge-bg: #FAF8F0;
+  --gs-badge-ink: #1A2E12;
+  --gs-badge-ink-soft: #4A5D42;
+  --gs-badge-border: #E7E2D3;
+  --gs-badge-accent: #FFB800;
+}
+
+/* ---------- Badge en el header del módulo ---------- */
+.global-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--gs-badge-bg);
+  border: 1.5px solid var(--gs-badge-border);
+  border-radius: 999px;
+  color: var(--gs-badge-ink);
+  font-family: var(--font-body, 'Nunito', system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 150ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  white-space: nowrap;
+}
+.global-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(26, 46, 18, 0.10);
+  border-color: var(--gs-badge-accent);
+  color: var(--gs-badge-ink);
+}
+/* Durante el recorrido el badge es informativo, no un enlace de salida
+   (Fase 4, Paso 4): sin cursor de puntero ni animación de hover. */
+.global-badge--locked {
+  cursor: default;
+}
+.global-badge--locked:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--gs-badge-border);
+}
+.global-badge__icon { font-size: 14px; }
+.global-badge__label {
+  color: var(--gs-badge-ink-soft);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  letter-spacing: 0.6px;
+}
+.global-badge__value {
+  font-family: var(--font-display, 'Baloo 2', system-ui, sans-serif);
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  color: var(--gs-badge-ink);
+  min-width: 2.4ch;
+  text-align: right;
+}
+.global-badge__max {
+  color: var(--gs-badge-ink-soft);
+  font-weight: 700;
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Cuando el badge va en el header del SENA (fondo claro + verde) */
+.welcome__header .global-badge {
+  margin-left: auto;
+}
+
+/* Cuando va en un header sticky con muchos items, no romper el wrap */
+header.site-header .site-header__inner .global-badge {
+  flex-shrink: 0;
+}
+
+/* ---------- Mini-sección en el home ---------- */
+.global-progress {
+  background: var(--paper, #FAF8F0);
+  padding: 80px 6vw;
+}
+.global-progress__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+.global-progress__total {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-display, 'Archivo Black', system-ui, sans-serif);
+  color: var(--ink, #1A2E12);
+}
+.global-progress__value {
+  font-size: clamp(48px, 7vw, 84px);
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.global-progress__max {
+  font-size: 18px;
+  color: var(--text-dim-2, #6B7076);
+  font-weight: 700;
+}
+
+.global-progress__bars {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  max-width: 720px;
+}
+@media (min-width: 700px) {
+  .global-progress__bars { grid-template-columns: 1fr 1fr; }
+}
+
+.gbar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  background: #fff;
+  border: 1px solid var(--paper-dim, #E7E2D3);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+.gbar:hover {
+  transform: translateY(-2px);
+  border-color: var(--gbar-color, #39A900);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  color: inherit;
+}
+.gbar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.gbar__label {
+  font-family: 'Archivo Black', system-ui, sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink, #1A2E12);
+}
+.gbar__value {
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-dim-2, #6B7076);
+  font-variant-numeric: tabular-nums;
+}
+.gbar__track {
+  height: 10px;
+  background: var(--paper-dim, #E7E2D3);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.gbar__fill {
+  display: block;
+  height: 100%;
+  background: var(--gbar-color, #39A900);
+  border-radius: 999px;
+  width: 0;
+  transition: width 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Si la sección va dentro de un fondo oscuro (por si el home cambia) */
+.dark-bg .global-progress { background: transparent; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .global-badge__label { display: none; } /* ahorra espacio en móvil */
+  .global-badge { padding: 8px 12px; }
+}

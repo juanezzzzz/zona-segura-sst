@@ -1,0 +1,64 @@
+/* ============================================
+   ZONA SEGURA · Barra de progreso global (Fase 2)
+   Barra fija en la parte superior de cada página del recorrido.
+   Autocontenida: no depende de las variables de cada tema
+   (funciona igual sobre el fondo oscuro del recorrido y sobre
+   el tema claro del SENA).
+   ============================================ */
+
+.journey-progress {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(20, 23, 26, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 8px 6vw 7px;
+  font-family: 'Space Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+.journey-progress__track {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.journey-progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  width: 0;
+  background: linear-gradient(90deg, #39A900, #FFC400);
+  transition: width 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.journey-progress__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+
+.journey-progress__step {
+  color: #A6ACB2;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.journey-progress__pct {
+  color: #7FD13B;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .journey-progress { padding: 7px 5vw 6px; }
+  .journey-progress__label { font-size: 10px; }
+}

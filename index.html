@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zona Segura · SENA</title>
+<link rel="icon" type="image/png" href="assets/images/logo-sena.png" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --ink: #14171A;
+  --ink-2: #1D2229;
+  --ink-3: #262C34;
+  --paper: #F5F2E9;
+  --paper-dim: #E7E2D3;
+  --green: #39A900;
+  --green-dark: #256B00;
+  --green-light: #E9F5DC;
+  --orange: #FF8A00;
+  --blue: #0B7FD6;
+  --yellow: #FFC400;
+  --text-dim: #A6ACB2;
+  --text-dim-2: #6B7076;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.hazard-rule {
+  height: 8px;
+  width: 100%;
+  background: repeating-linear-gradient(135deg, var(--yellow) 0 18px, var(--ink) 18px 36px);
+}
+
+/* ---------- NAV ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 6vw;
+  background: rgba(20, 23, 26, 0.92);
+  backdrop-filter: blur(6px);
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--paper);
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+.nav__brand svg { width: 26px; height: 26px; flex-shrink: 0; }
+
+.nav__logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: block;
+  object-fit: contain;
+  /* Logo SENA oficial sin fondo: silueta verde con texto "SENA".
+     Se distingue por el contraste con el fondo oscuro del nav. */
+}
+
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 13px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.nav__cta:hover { transform: translateY(-1px); background: #2E9200; }
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 90px 6vw 0;
+  overflow: hidden;
+}
+
+.hero__bg-glow {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(57, 169, 0, 0.22) 0%, rgba(57, 169, 0, 0) 70%);
+  pointer-events: none;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  color: var(--yellow);
+  border: 1px solid rgba(255, 196, 0, 0.4);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 28px;
+}
+
+.hero__eyebrow span.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  display: inline-block;
+}
+
+.hero__title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(52px, 10vw, 118px);
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  max-width: 900px;
+}
+
+.hero__title .accent { color: var(--green); }
+
+.hero__subtitle {
+  margin-top: 26px;
+  max-width: 540px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.hero__actions {
+  margin-top: 38px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--green);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 16px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(57, 169, 0, 0.35); }
+
+.hero__meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text-dim-2);
+  letter-spacing: 0.03em;
+}
+
+/* ---------- CINTA DEMO (elemento firma) ---------- */
+.belt-demo {
+  position: relative;
+  margin-top: 70px;
+  padding: 26px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.belt-demo__label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim-2);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.belt-demo__track {
+  position: relative;
+  height: 92px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+.belt-demo__rail {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, var(--yellow) 0 16px, var(--ink-2) 16px 32px);
+}
+
+.belt-demo__items {
+  display: flex;
+  gap: 18px;
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  animation: belt-scroll 14s linear infinite;
+}
+
+.belt-demo__card {
+  flex-shrink: 0;
+  width: 190px;
+  background: var(--ink-3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--paper-dim);
+}
+
+.belt-demo__card b { display: block; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.belt-demo__card.tag-green b { color: var(--green); }
+.belt-demo__card.tag-orange b { color: var(--orange); }
+.belt-demo__card.tag-blue b { color: var(--blue); }
+
+@keyframes belt-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.belt-demo__bins {
+  display: flex;
+  gap: 40px;
+  margin-top: 22px;
+  padding-bottom: 34px;
+}
+
+.belt-demo__bin {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim-2);
+}
+
+.belt-demo__bin i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.belt-demo__bin.g i { background: var(--green); }
+.belt-demo__bin.o i { background: var(--orange); }
+.belt-demo__bin.b i { background: var(--blue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .belt-demo__items { animation: none; }
+}
+
+/* ---------- SECCIONES ---------- */
+section { padding: 90px 6vw; }
+
+.section__eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  margin-bottom: 14px;
+}
+
+.section__title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(30px, 4.5vw, 46px);
+  line-height: 1.05;
+  max-width: 720px;
+  text-transform: uppercase;
+}
+
+.section__subtitle {
+  margin-top: 18px;
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #4B4F45;
+}
+
+/* ============================================
+   SECCIÓN DE JUGAR — Selección de módulo
+   ============================================ */
+.play-section {
+  background: var(--ink);
+  color: var(--paper);
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+
+.play-section .section__eyebrow { color: var(--yellow); }
+.play-section .section__title { color: var(--paper); }
+.play-section .section__subtitle { color: var(--text-dim); }
+
+.play-grid {
+  margin-top: 54px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.play-grid .game-tile { cursor: default; }
+
+.play-section__cta {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+.game-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink-2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  min-height: 320px;
+}
+
+.game-tile::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+}
+
+.game-tile.is-primary::before { background: linear-gradient(90deg, var(--green), var(--yellow)); }
+.game-tile.is-blue::before   { background: linear-gradient(90deg, var(--blue), #4FB3F0); }
+.game-tile.is-orange::before { background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+
+.game-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.game-tile.is-primary:hover { border-color: var(--green); }
+.game-tile.is-blue:hover   { border-color: var(--blue); }
+.game-tile.is-orange:hover { border-color: var(--orange); }
+
+.game-tile__num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim-2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.game-tile__icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 18px 0 22px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.game-tile.is-primary .game-tile__icon {
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  box-shadow: 0 10px 24px rgba(57, 169, 0, 0.35);
+}
+
+.game-tile.is-blue .game-tile__icon {
+  background: linear-gradient(135deg, var(--blue), #085380);
+  box-shadow: 0 10px 24px rgba(11, 127, 214, 0.35);
+}
+
+.game-tile.is-orange .game-tile__icon {
+  background: linear-gradient(135deg, var(--orange), #C95A00);
+  box-shadow: 0 10px 24px rgba(255, 138, 0, 0.35);
+}
+
+.game-tile__title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  color: var(--paper);
+}
+
+.game-tile__text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  flex: 1;
+}
+
+.game-tile__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.game-tile__tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim-2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.game-tile__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid;
+  transition: gap 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.game-tile.is-primary .game-tile__cta { color: var(--green); border-color: var(--green); }
+.game-tile.is-blue   .game-tile__cta { color: var(--blue);  border-color: var(--blue); }
+.game-tile.is-orange .game-tile__cta { color: var(--orange); border-color: var(--orange); }
+
+.game-tile.is-primary:hover .game-tile__cta { background: var(--green); color: var(--ink); gap: 10px; }
+.game-tile.is-blue:hover   .game-tile__cta { background: var(--blue);  color: var(--paper); gap: 10px; }
+.game-tile.is-orange:hover .game-tile__cta { background: var(--orange); color: var(--ink); gap: 10px; }
+
+/* ---------- EJES (paper bg) ---------- */
+.pillars {
+  background: var(--paper);
+}
+
+.pillars__grid {
+  margin-top: 54px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.pillar-card {
+  background: #fff;
+  border: 1px solid var(--paper-dim);
+  border-radius: 18px;
+  padding: 28px 24px;
+  text-align: left;
+}
+
+.pillar-card img {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.pillar-card__title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.pillar-card__text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #55584D;
+}
+
+/* ---------- CTA BAND ---------- */
+.cta-band {
+  background: var(--green);
+  color: var(--ink);
+  padding: 80px 6vw;
+  text-align: center;
+}
+
+.cta-band__title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(32px, 6vw, 56px);
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+.cta-band__subtitle {
+  margin-top: 16px;
+  font-size: 16px;
+  color: rgba(20, 23, 26, 0.75);
+}
+
+.cta-band .btn-primary {
+  margin-top: 32px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.cta-band .btn-primary:hover { box-shadow: 0 12px 26px rgba(20, 23, 26, 0.35); }
+
+/* ---------- FOOTER ---------- */
+.footer {
+  background: var(--ink);
+  color: var(--text-dim-2);
+  padding: 34px 6vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+}
+
+.footer__brand svg { width: 18px; height: 18px; }
+
+.footer__logo {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: block;
+  object-fit: contain;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 880px) {
+  .play-grid { grid-template-columns: 1fr; }
+  .pillars__grid { grid-template-columns: 1fr; }
+  .hero { padding-top: 70px; }
+  section { padding: 64px 6vw; }
+  .play-section { padding-top: 70px; padding-bottom: 70px; }
+  .game-tile { min-height: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="hazard-rule"></div>
+
+<nav class="nav">
+  <div class="nav__brand">
+    <img src="assets/images/logo-sena.png" alt="Logo SENA" class="nav__logo" />
+    ZONA SEGURA
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero__bg-glow"></div>
+  <span class="hero__eyebrow"><span class="dot"></span>SENA · Seguridad y Salud en el Trabajo</span>
+  <h1 class="hero__title">Zona<br><span class="accent">Segura</span></h1>
+  <p class="hero__subtitle">
+    El juego que pone a prueba tu criterio en seguridad, salud y bienestar laboral —
+    antes de que la prueba real sea un accidente.
+  </p>
+  <div class="hero__actions">
+    <a class="btn-primary" href="games/introduccion.html">Comenzar capacitación →</a>
+    <span class="hero__meta">RECORRIDO ÚNICO · 4 ETAPAS</span>
+  </div>
+
+  <div class="belt-demo">
+    <p class="belt-demo__label">Así entra cada situación a la cinta</p>
+    <div class="belt-demo__track">
+      <div class="belt-demo__rail"></div>
+      <div class="belt-demo__items">
+        <div class="belt-demo__card tag-orange"><b>Higiene y seguridad</b>Un aprendiz reporta un cable atravesando el pasillo.</div>
+        <div class="belt-demo__card tag-green"><b>Mentalmente saludable</b>El grupo resuelve un desacuerdo con diálogo y respeto.</div>
+        <div class="belt-demo__card tag-blue"><b>Medicina laboral</b>Se realiza una jornada de vacunación para aprendices.</div>
+        <div class="belt-demo__card tag-orange"><b>Higiene y seguridad</b>Se señaliza un piso mojado en el taller.</div>
+        <div class="belt-demo__card tag-green"><b>Mentalmente saludable</b>Charla sobre manejo del estrés en la jornada.</div>
+        <div class="belt-demo__card tag-blue"><b>Medicina laboral</b>Un aprendiz recibe atención por un malestar.</div>
+        <div class="belt-demo__card tag-orange"><b>Higiene y seguridad</b>Un aprendiz reporta un cable atravesando el pasillo.</div>
+        <div class="belt-demo__card tag-green"><b>Mentalmente saludable</b>El grupo resuelve un desacuerdo con diálogo y respeto.</div>
+        <div class="belt-demo__card tag-blue"><b>Medicina laboral</b>Se realiza una jornada de vacunación para aprendices.</div>
+        <div class="belt-demo__card tag-orange"><b>Higiene y seguridad</b>Se señaliza un piso mojado en el taller.</div>
+        <div class="belt-demo__card tag-green"><b>Mentalmente saludable</b>Charla sobre manejo del estrés en la jornada.</div>
+        <div class="belt-demo__card tag-blue"><b>Medicina laboral</b>Un aprendiz recibe atención por un malestar.</div>
+      </div>
+    </div>
+    <div class="belt-demo__bins">
+      <span class="belt-demo__bin g"><i></i>Mentalmente saludable</span>
+      <span class="belt-demo__bin b"><i></i>Medicina laboral</span>
+      <span class="belt-demo__bin o"><i></i>Higiene y seguridad</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================
+     SECCIÓN DE JUGAR — Selección de módulo
+     ============================================ -->
+<section class="play-section" id="jugar">
+  <p class="section__eyebrow">Tu turno en la cinta</p>
+  <h2 class="section__title">Un solo recorrido</h2>
+  <p class="section__subtitle">
+    No son juegos sueltos: es una sola capacitación con 4 etapas seguidas. Empiezas, avanzas y terminas con un resultado único.
+  </p>
+
+  <div class="play-grid">
+    <div class="game-tile is-orange">
+      <span class="game-tile__num">ETAPA 1</span>
+      <div class="game-tile__icon" aria-hidden="true">🦺</div>
+      <h3 class="game-tile__title">Viste al Trabajador</h3>
+      <p class="game-tile__text">Elige el área de trabajo y coloca los Elementos de Protección Personal correctos en cada zona del cuerpo.</p>
+      <div class="game-tile__footer">
+        <span class="game-tile__tag">Educativo · ~3 min</span>
+      </div>
+    </div>
+
+    <div class="game-tile is-blue">
+      <span class="game-tile__num">ETAPA 2</span>
+      <div class="game-tile__icon" aria-hidden="true">🎤</div>
+      <h3 class="game-tile__title">Vocal Hero o Respiración</h3>
+      <p class="game-tile__text">Eliges uno de los dos: ejercicios vocales con detección de voz, o box breathing guiado para bajar el estrés.</p>
+      <div class="game-tile__footer">
+        <span class="game-tile__tag">Eliges un camino</span>
+      </div>
+    </div>
+
+    <div class="game-tile is-primary">
+      <span class="game-tile__num">ETAPA 3</span>
+      <div class="game-tile__icon" aria-hidden="true">🎓</div>
+      <h3 class="game-tile__title">Zona Segura SENA</h3>
+      <p class="game-tile__text">3 rondas sobre Seguridad y Salud en el Trabajo: cinta transportadora, memorama y ruleta con penitencia.</p>
+      <div class="game-tile__footer">
+        <span class="game-tile__tag">Educativo · ~5 min</span>
+      </div>
+    </div>
+
+    <div class="game-tile is-orange">
+      <span class="game-tile__num">ETAPA 4</span>
+      <div class="game-tile__icon" aria-hidden="true">🏁</div>
+      <h3 class="game-tile__title">Resultados finales</h3>
+      <p class="game-tile__text">Resumen de tu paso por las 3 etapas: puntaje total, tiempo y logros conseguidos en la capacitación.</p>
+      <div class="game-tile__footer">
+        <span class="game-tile__tag">Cierre del recorrido</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="play-section__cta">
+    <a class="btn-primary" href="games/introduccion.html">Comenzar capacitación →</a>
+  </div>
+</section>
+
+<section class="pillars">
+  <p class="section__eyebrow">La base de todo</p>
+  <h2 class="section__title">Los 3 ejes de la SST</h2>
+  <p class="section__subtitle">Todo lo que ocurre en la cinta, el memorama y la ruleta se clasifica en uno de estos tres pilares reales del Sistema de Gestión de Seguridad y Salud en el Trabajo.</p>
+
+  <div class="pillars__grid">
+    <div class="pillar-card">
+      <img src="assets/images/eje-higiene.png" alt="Icono higiene y seguridad industrial" />
+      <p class="pillar-card__title">Higiene y seguridad industrial</p>
+      <p class="pillar-card__text">Elementos de protección, señalización y condiciones seguras del entorno de trabajo.</p>
+    </div>
+    <div class="pillar-card">
+      <img src="assets/images/eje-mental.png" alt="Icono mentalmente saludable" />
+      <p class="pillar-card__title">Mentalmente saludable</p>
+      <p class="pillar-card__text">Bienestar emocional, convivencia y manejo del estrés dentro del ambiente de formación.</p>
+    </div>
+    <div class="pillar-card">
+      <img src="assets/images/eje-medicina.png" alt="Icono medicina laboral" />
+      <p class="pillar-card__title">Medicina laboral</p>
+      <p class="pillar-card__text">Prevención, atención en salud y hábitos que protegen la vida de cada aprendiz.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2 class="cta-band__title">¿Listo para tu turno en la cinta?</h2>
+  <p class="cta-band__subtitle">Un recorrido, cuatro etapas. Cero margen para el "más o menos".</p>
+  <a class="btn-primary" href="games/introduccion.html">Comenzar capacitación →</a>
+</section>
+
+<footer class="footer">
+  <span class="footer__brand">
+    <img src="assets/images/logo-sena.png" alt="Logo SENA" class="footer__logo" />
+    Seguridad y Salud en el Trabajo · SENA
+  </span>
+  <span>Formación para la vida y el trabajo.</span>
+</footer>
+
+</body>
+</html>
