@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Viste al Trabajador - Aprende a colocar los EPP correctos en cada área de trabajo" />
+  <title>Viste al Trabajador · Zona Segura</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-sena.png" />
+  <link rel="stylesheet" href="../styles/global.css" />
+  <link rel="stylesheet" href="../styles/global-progress.css" />
+  <link rel="stylesheet" href="epp.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="epp-page" data-progress-stage="epp">
+
+  <div class="site-header__hazard" aria-hidden="true"></div>
+
+  <!-- ============== HEADER ============== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <div class="site-header__brand">
+        <span class="site-header__logo" aria-hidden="true">
+          <img src="../assets/images/logo-sena.png" alt="Logo SENA" class="site-header__logo-img" />
+        </span>
+        <div>
+          <h1 class="site-header__title">Viste al Trabajador</h1>
+          <p class="site-header__subtitle">Aprende a colocar los EPP correctos en cada área</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="screen epp-screen">
+    <div class="container epp-container">
+
+      <!-- ============== PANTALLA: INICIO ============== -->
+      <section id="epp-screen-start" class="epp-card epp-screen-panel fade-in" aria-labelledby="epp-title">
+        <div class="epp-start__icon" aria-hidden="true">🦺</div>
+        <h2 id="epp-title" class="epp-start__title">Viste al Trabajador</h2>
+        <p class="epp-start__description">
+          Selecciona el área de trabajo, identifica los Elementos de Protección Personal (EPP)
+          que necesita el compañero y colócalos en la zona correcta del cuerpo.
+        </p>
+
+        <ul class="epp-start__list">
+          <li><span aria-hidden="true">🐄</span> Ganadería</li>
+          <li><span aria-hidden="true">🍳</span> Cocina</li>
+          <li><span aria-hidden="true">🔥</span> Soldadura</li>
+          <li><span aria-hidden="true">🏗️</span> Operador de maquinaria</li>
+        </ul>
+
+        <div class="epp-start__actions">
+          <button id="epp-btn-start" class="btn btn-primary btn-large">Comenzar</button>
+        </div>
+        <p class="text-small text-muted epp-start__hint">
+          💡 Toca un EPP y luego la zona del cuerpo donde va. Cuando termines, pulsa <strong>Comprobar</strong>.
+        </p>
+      </section>
+
+      <!-- ============== PANTALLA: EJERCICIO (EPP) ============== -->
+      <section id="epp-screen-exercise" class="epp-card epp-screen-panel hidden" aria-labelledby="epp-game-title">
+        <div class="epp2" id="round4-game">
+
+          <header class="epp2__topbar">
+            <div class="epp2__brand">
+              <span class="epp2__brand-badge" aria-hidden="true">🛡️</span>
+              <span class="epp2__brand-text">
+                <strong>ZONA SEGURA</strong>
+                <small>SST · CAFEC</small>
+              </span>
+            </div>
+            <div class="epp2__title-block">
+              <h1 id="epp-game-title">Viste a tu Compañero</h1>
+              <p>Selecciona el área y coloca los EPP correctos.</p>
+            </div>
+            <div class="epp2__hud">
+              <div class="epp2__hud-item">
+                <span class="epp2__hud-label">Puntaje</span>
+                <span class="epp2__hud-value" id="round4-score">0</span>
+              </div>
+              <div class="epp2__hud-item">
+                <span class="epp2__hud-label">Vidas</span>
+                <div class="epp2__hud-lives" id="round4-lives" aria-label="Vidas restantes">
+                  <span class="life-heart" data-life="1">❤️</span>
+                  <span class="life-heart" data-life="2">❤️</span>
+                  <span class="life-heart" data-life="3">❤️</span>
+                  <span class="life-heart" data-life="4">❤️</span>
+                  <span class="life-heart" data-life="5">❤️</span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <!-- ============== ACTION BAR: áreas + instrucciones ============== -->
+          <section class="epp2__actionbar" aria-label="Selector de área y ayuda">
+            <div class="epp2__area-pills" id="round4-area-list"></div>
+            <p class="epp2__hint">
+              <span aria-hidden="true">💡</span>
+              Toca un espacio del panel derecho y elige el EPP. Cuando termines, pulsa <strong>Comprobar</strong>.
+            </p>
+          </section>
+
+          <div class="epp2__body">
+
+            <!-- Columna 1: escenario + personaje + overlays -->
+            <section class="epp2__stage">
+              <p class="epp2__area-label">Área: <strong id="round4-area-name">—</strong></p>
+
+              <div class="epp2__character" id="round4-character">
+                <img class="epp2__character-img" id="round4-character-img" alt="" />
+                <!-- Capa donde se renderizan los EPPs (PNG) ya colocados sobre el personaje. -->
+                <div class="epp2__overlays" id="round4-overlays"></div>
+              </div>
+
+              <div class="epp2__actions">
+                <button class="btn btn--primary" id="round4-check-btn" type="button">Comprobar</button>
+                <button class="btn btn--ghost" id="round4-reset-btn" type="button">Reiniciar área</button>
+              </div>
+
+              <div class="feedback" id="round4-feedback" hidden>
+                <p class="feedback__title" id="round4-feedback-title"></p>
+                <p class="feedback__text" id="round4-feedback-text"></p>
+              </div>
+            </section>
+
+            <!-- Columna 2: panel de equipamiento (slots clickeables) -->
+            <aside class="epp2__equipment" aria-labelledby="epp2-equipment-title">
+              <h3 id="epp2-equipment-title" class="epp2__equipment-title">Equipamiento del compañero</h3>
+              <p class="epp2__equipment-sub">Selecciona cada parte del cuerpo y elige el EPP adecuado.</p>
+              <div class="epp2__equipment-grid" id="round4-equipment-grid"></div>
+            </aside>
+          </div>
+
+          <footer class="epp2__footer">
+            <div class="epp2__progress">
+              <span class="epp2__progress-label">Progreso</span>
+              <div class="epp2__progress-track">
+                <div class="epp2__progress-fill" id="round4-progress-fill"></div>
+              </div>
+              <span class="epp2__progress-count" id="round4-progress-count">0/6</span>
+            </div>
+            <div class="epp2__badges" id="round4-badges-row"></div>
+          </footer>
+        </div>
+      </section>
+
+      <!-- ============== PANTALLA: COMPLETADO ============== -->
+      <section id="epp-screen-complete" class="epp-card epp-screen-panel hidden" aria-labelledby="epp-complete-title">
+        <div class="epp-complete__icon" aria-hidden="true">🛡️</div>
+        <h2 id="epp-complete-title" class="epp-complete__title">¡Ronda EPP completada!</h2>
+        <p class="epp-complete__message">
+          Vestiste correctamente a cada compañero con su EPP.
+        </p>
+
+        <div class="epp-complete__stats">
+          <div class="epp-stat">
+            <div class="epp-stat__icon" aria-hidden="true">⭐</div>
+            <div class="epp-stat__value" id="epp-final-score">0</div>
+            <div class="epp-stat__label">Puntos</div>
+          </div>
+          <div class="epp-stat">
+            <div class="epp-stat__icon" aria-hidden="true">✅</div>
+            <div class="epp-stat__value" id="epp-final-correct">0</div>
+            <div class="epp-stat__label">Aciertos</div>
+          </div>
+          <div class="epp-stat">
+            <div class="epp-stat__icon" aria-hidden="true">🎯</div>
+            <div class="epp-stat__value" id="epp-final-areas">0/6</div>
+            <div class="epp-stat__label">Áreas</div>
+          </div>
+        </div>
+
+        <p class="epp-complete__tip">
+          💬 Recuerda: los EPP son la última barrera entre el riesgo y el aprendiz. Úsalos siempre.
+        </p>
+
+        <div class="epp-complete__actions">
+          <a href="elegir.html" id="epp-btn-continue" class="btn btn-primary btn-large">Continuar ahora →</a>
+          <button id="epp-btn-replay" class="btn btn-secondary btn-large">Repetir ejercicio</button>
+        </div>
+        <p class="epp-complete__autocontinue" id="epp-autocontinue-msg" aria-live="polite">
+          Continuando automáticamente en <span id="epp-autocontinue-count">5</span> s…
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../scripts/global-progress.js" defer></script>
+  <script src="global-score.js" defer></script>
+  <script src="epp.js" defer></script>
+  <script defer>
+    document.getElementById('epp-btn-continue')?.addEventListener('click', () => {
+      if (window.ProgressTracker) ProgressTracker.complete('epp');
+    });
+
+    // Continuación automática hacia "Elegir" al completar el módulo.
+    (() => {
+      const completeScreen = document.getElementById('epp-screen-complete');
+      const countEl = document.getElementById('epp-autocontinue-count');
+      const msgEl = document.getElementById('epp-autocontinue-msg');
+      const continueBtn = document.getElementById('epp-btn-continue');
+      if (!completeScreen || !countEl || !continueBtn) return;
+
+      let seconds = 5;
+      let timer = null;
+
+      const stop = () => { if (timer) clearInterval(timer); };
+
+      const tick = () => {
+        seconds -= 1;
+        if (seconds <= 0) {
+          stop();
+          if (window.ProgressTracker) ProgressTracker.complete('epp');
+          window.location.href = continueBtn.getAttribute('href');
+          return;
+        }
+        countEl.textContent = String(seconds);
+      };
+
+      const start = () => {
+        if (timer) return;
+        seconds = 5;
+        countEl.textContent = String(seconds);
+        if (msgEl) msgEl.hidden = false;
+        timer = setInterval(tick, 1000);
+      };
+
+      // Cancela el auto-avance si el usuario interactúa manualmente.
+      continueBtn.addEventListener('click', stop);
+      document.getElementById('epp-btn-replay')?.addEventListener('click', stop);
+
+      // Arranca la cuenta regresiva en cuanto la pantalla de completado se muestra.
+      const observer = new MutationObserver(() => {
+        if (!completeScreen.classList.contains('hidden')) start();
+        else stop();
+      });
+      observer.observe(completeScreen, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+</body>
+</html>
