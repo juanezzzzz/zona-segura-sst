@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description"
+    content="Aprende a reconocer los 3 ejes de la Seguridad y Salud en el Trabajo jugando. Un juego educativo del SENA CAFEC Casanare con 3 rondas interactivas.">
+  <meta name="theme-color" content="#2D8C5F">
+  <meta name="author" content="SENA CAFEC Casanare">
+
+  <!-- Favicon SENA -->
+  <link rel="icon" type="image/png" href="../../assets/images/logo-sena.png" />
+
+  <!-- Open Graph para redes sociales -->
+  <meta property="og:title" content="Zona Segura | SENA CAFEC Casanare">
+  <meta property="og:description"
+    content="Aprende sobre Seguridad y Salud en el Trabajo jugando. Incluye cinta transportadora, memorama y ruleta.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="/">
+
+  <!-- Preload de recursos críticos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap"
+    as="style">
+  <link rel="preload" href="css/styles.css" as="style">
+
+  <!-- Estilos -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="../../styles/global-progress.css">
+
+  <noscript>
+    <p style="text-align: center; margin: 2rem; font-family: system-ui, -apple-system, sans-serif;">
+      Este juego requiere JavaScript para funcionar. Por favor, habilita JavaScript en tu navegador.
+    </p>
+  </noscript>
+</head>
+
+<body data-progress-stage="sena">
+
+  <!-- ============ CONTROL GLOBAL DE SONIDO ============ -->
+  <button id="sound-toggle" class="sound-toggle" type="button" aria-label="Silenciar sonido">
+    <svg class="sound-toggle__icon-on" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true">
+      <path d="M4 9V15H8L13 20V4L8 9H4Z" fill="currentColor" />
+      <path d="M16.5 9C17.5 10 18 11 18 12C18 13 17.5 14 16.5 15" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" />
+      <path d="M19 6.5C20.5 8 21.3 10 21.3 12C21.3 14 20.5 16 19 17.5" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" opacity="0.6" />
+    </svg>
+    <svg class="sound-toggle__icon-off" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true">
+      <path d="M4 9V15H8L13 20V4L8 9H4Z" fill="currentColor" />
+      <path d="M16 9L21 14M21 9L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <!-- ============ INDICADOR GLOBAL DE NIVEL ============ -->
+  <div id="level-indicator" class="level-indicator" hidden>
+    <span class="level-indicator__label">Nivel <span id="level-indicator-current">1</span> de <span
+        id="level-indicator-total">3</span></span>
+    <div class="level-indicator__dots" id="level-indicator-dots"></div>
+  </div>
+
+  <!-- Ancla fija para el badge de puntaje global (el nombre y la función
+       del participante ahora se capturan una sola vez en introduccion.html) -->
+  <header class="welcome__header welcome__header--floating"></header>
+
+  <!-- Música de fondo opcional: agrega tu archivo en assets/sounds/background-music.mp3 -->
+  <audio id="bg-music" loop preload="none"
+    onerror="console.warn('No se pudo cargar la música de fondo. Verifica que el archivo exista.');">
+    <source src="assets/sounds/background-music.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+
+    <!-- ============ PANTALLA 1: RONDA 1 — CINTA TRANSPORTADORA ============ -->
+    <section id="screen-round1" class="screen">
+
+      <div class="round1" id="round1-game">
+        <header class="round1__header">
+          <div class="round1__progress">
+            <span class="round1__progress-label" id="round1-progress-label">Situación 1 de 8</span>
+            <div class="progress-bar">
+              <div class="progress-bar__fill" id="round1-progress-fill"></div>
+            </div>
+          </div>
+          <div class="round1__lives" id="round1-lives" aria-label="Vidas restantes">
+            <span class="life-heart" data-life="1">❤️</span>
+            <span class="life-heart" data-life="2">❤️</span>
+            <span class="life-heart" data-life="3">❤️</span>
+          </div>
+          <div class="round1__score">
+            <span id="round1-score">0</span>
+            <span class="round1__score-unit">pts</span>
+          </div>
+        </header>
+
+        <p class="round1__instructions">Arrastra la situación al eje correcto, o simplemente haz clic en el eje.</p>
+
+        <div class="round1__timer" id="round1-timer">
+          <div class="round1__timer-bar">
+            <div class="round1__timer-bar-fill" id="round1-timer-fill"></div>
+          </div>
+          <span class="round1__timer-count" id="round1-timer-count">8</span>
+        </div>
+
+        <div class="belt" id="round1-belt">
+          <div class="round1__event-banner" id="round1-event-banner" hidden></div>
+          <div class="belt__hazard-tape belt__hazard-tape--top" aria-hidden="true"></div>
+          <div class="belt__roller belt__roller--left" aria-hidden="true"></div>
+          <div class="belt__roller belt__roller--right" aria-hidden="true"></div>
+          <div class="belt__chute" aria-hidden="true"></div>
+          <div class="belt__rail" aria-hidden="true"></div>
+          <div class="belt__rail belt__rail--front" aria-hidden="true"></div>
+          <div class="belt__hazard-tape belt__hazard-tape--bottom" aria-hidden="true"></div>
+          <div class="belt__items" id="belt-items"></div>
+        </div>
+
+        <div class="bins" id="bins">
+          <button class="bin" data-eje="mental" id="bin-mental" type="button">
+            <span class="bin__lid" aria-hidden="true"></span>
+            <span class="bin__icon" aria-hidden="true">
+              <img src="assets/images/eje-mental.png" alt="" loading="lazy">
+            </span>
+            <span class="bin__label">Mentalmente Saludable</span>
+          </button>
+
+          <button class="bin" data-eje="medicina" id="bin-medicina" type="button">
+            <span class="bin__lid" aria-hidden="true"></span>
+            <span class="bin__icon" aria-hidden="true">
+              <img src="assets/images/eje-medicina.png" alt="" loading="lazy">
+            </span>
+            <span class="bin__label">Medicina Laboral</span>
+          </button>
+
+          <button class="bin" data-eje="higiene" id="bin-higiene" type="button">
+            <span class="bin__lid" aria-hidden="true"></span>
+            <span class="bin__icon" aria-hidden="true">
+              <img src="assets/images/eje-higiene.png" alt="" loading="lazy">
+            </span>
+            <span class="bin__label">Higiene y Seguridad Industrial</span>
+          </button>
+        </div>
+
+        <div class="feedback" id="round1-feedback" hidden>
+          <p class="feedback__title" id="feedback-title"></p>
+          <p class="feedback__text" id="feedback-text"></p>
+        </div>
+      </div>
+
+      <div class="round1-complete" id="round1-complete" hidden>
+        <svg class="badge-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M32 4L40 12H50V22L58 30L50 38V48H40L32 56L24 48H14V38L6 30L14 22V12H24L32 4Z"
+            fill="var(--accent-warm)" />
+          <path d="M22 31L28.5 37.5L42 24" stroke="white" stroke-width="3.2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <h2>¡Ronda 1 completada!</h2>
+        <p id="round1-complete-summary">Clasificaste correctamente <span id="final-score">0</span> de 8 situaciones.</p>
+        <button class="btn btn--primary" id="round1-next-btn" type="button">
+          Ir a la Ronda 2
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="round1-gameover" id="round1-gameover" hidden>
+        <div class="round1-gameover__icon" aria-hidden="true">💔</div>
+        <h2>¡Sin vidas!</h2>
+        <p>Se te acabaron los corazones. Respira y vuelve a intentarlo, ¡tú puedes!</p>
+        <button class="btn btn--primary" id="round1-retry-btn" type="button">Reintentar Ronda 1</button>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA 2: RONDA 2 — MEMORAMA TEMÁTICO ============ -->
+    <section id="screen-round2" class="screen">
+
+      <div class="round2" id="round2-game">
+        <header class="round2__header">
+          <p class="round2__title">Memorama SST</p>
+          <div class="round2__lives" id="round2-lives" aria-label="Vidas restantes">
+            <span class="life-heart" data-life="1">❤️</span>
+            <span class="life-heart" data-life="2">❤️</span>
+            <span class="life-heart" data-life="3">❤️</span>
+            <span class="life-heart" data-life="4">❤️</span>
+            <span class="life-heart" data-life="5">❤️</span>
+            <span class="life-heart" data-life="6">❤️</span>
+            <span class="life-heart" data-life="7">❤️</span>
+          </div>
+          <div class="round2__pairs">
+            Parejas: <span id="round2-pairs-found">0</span> / <span id="round2-pairs-total">5</span>
+          </div>
+        </header>
+
+        <p class="round2__instructions">Cada tarjeta tiene su pareja: una situación o EPP con la categoría a la
+          que pertenece (🧠 Mentalmente Saludable, ⚕️ Medicina Laboral o 🦺 Higiene y Seguridad). Memoriza dónde
+          está cada una antes de que se volteen boca abajo.</p>
+
+        <div class="round2__preview-banner" id="round2-preview-banner" hidden>
+          ¡Memoriza las parejas! <span id="round2-preview-count">5</span>
+        </div>
+
+        <div class="memo-grid" id="memo-grid"></div>
+
+        <div class="feedback feedback--round2" id="round2-feedback" hidden>
+          <p class="feedback__title" id="round2-feedback-title">¡Pareja encontrada!</p>
+          <p class="feedback__text" id="round2-feedback-text"></p>
+        </div>
+      </div>
+
+      <div class="round2-gameover" id="round2-gameover" hidden>
+        <div class="round1-gameover__icon" aria-hidden="true">💔</div>
+        <h2>¡Sin vidas!</h2>
+        <p>Te toca girar la ruleta de castigo antes de volver a intentarlo...</p>
+      </div>
+
+      <div class="round2-complete" id="round2-complete" hidden>
+        <svg class="badge-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M32 4L40 12H50V22L58 30L50 38V48H40L32 56L24 48H14V38L6 30L14 22V12H24L32 4Z"
+            fill="var(--accent-warm)" />
+          <path d="M22 31L28.5 37.5L42 24" stroke="white" stroke-width="3.2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <h2>¡Memorama completado!</h2>
+        <p>Encontraste las 6 parejas de situaciones y ejes.</p>
+        <button class="btn btn--primary" id="round2-next-btn" type="button">
+          Ir a la Ronda 3
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA 3: RONDA 3 — RULETA CON PENITENCIA ============ -->
+    <section id="screen-round3" class="screen">
+
+      <div class="round3" id="round3-game">
+        <p class="round3__title" id="round3-title">Ruleta Zona Segura</p>
+        <p class="round3__instructions" id="round3-instructions">Gira la ruleta: si cae en premio, respondes una
+          pregunta rápida. Si cae en penitencia, cumples un reto en vivo.</p>
+
+        <div class="wheel-wrap">
+          <div class="wheel-pointer" aria-hidden="true"></div>
+          <svg id="wheel" class="wheel" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"></svg>
+        </div>
+
+        <button class="btn btn--primary" id="spin-btn" type="button">Girar la ruleta</button>
+
+        <div class="round3-result" id="round3-result" hidden>
+          <div class="round3-result__panel" id="round3-premio-panel" hidden>
+            <p class="round3-result__tag round3-result__tag--premio">Zona premio</p>
+            <p class="round3-result__question" id="premio-question"></p>
+            <div class="round3-options" id="premio-options"></div>
+          </div>
+
+          <div class="round3-result__panel" id="round3-penitencia-panel" hidden>
+            <p class="round3-result__tag round3-result__tag--penitencia">Zona penitencia</p>
+            <p class="round3-result__challenge" id="penitencia-text"></p>
+            <div class="round3-timer" id="penitencia-timer">15</div>
+            <button class="btn btn--primary" id="penitencia-done-btn" type="button">¡Listo!</button>
+          </div>
+
+          <div class="feedback" id="round3-feedback" hidden>
+            <p class="feedback__title" id="round3-feedback-title"></p>
+            <p class="feedback__text" id="round3-feedback-text"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="round3-complete" id="round3-complete" hidden>
+        <svg class="badge-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M32 4L40 12H50V22L58 30L50 38V48H40L32 56L24 48H14V38L6 30L14 22V12H24L32 4Z"
+            fill="var(--accent-warm)" />
+          <path d="M22 31L28.5 37.5L42 24" stroke="white" stroke-width="3.2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <h2>¡Ronda 3 completada!</h2>
+        <p>Cerremos tu turno como funcionario SST por un día.</p>
+        <button class="btn btn--primary" id="round3-next-btn" type="button">
+          Ver mi resumen
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- (Ronda 4: Viste al Trabajador se movió a un módulo independiente en games/epp.html) -->
+
+    <!-- ============ PANTALLA DE CIERRE GENERAL ============ -->
+    <section id="screen-final" class="screen">
+      <div class="final-screen">
+        <div class="final-screen__illustration" aria-hidden="true"></div>
+        <svg class="badge-icon final-screen__badge" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
+          <path d="M32 4L40 12H50V22L58 30L50 38V48H40L32 56L24 48H14V38L6 30L14 22V12H24L32 4Z"
+            fill="var(--accent-warm)" />
+          <path d="M22 31L28.5 37.5L42 24" stroke="white" stroke-width="3.2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <h2 id="final-thanks">¡Gracias!</h2>
+        <p class="final-screen__summary" id="final-summary">Completaste tu turno como funcionario SST por un día.</p>
+
+        <div class="final-screen__stats">
+          <div class="final-stat">
+            <span class="final-stat__value" id="final-total-score">0</span>
+            <span class="final-stat__label">puntos totales</span>
+          </div>
+          <div class="final-stat">
+            <span class="final-stat__value" id="final-badges">0</span>
+            <span class="final-stat__label">insignias</span>
+          </div>
+          <div class="final-stat">
+            <span class="final-stat__value" id="final-accuracy">0%</span>
+            <span class="final-stat__label">precisión</span>
+          </div>
+          <div class="final-stat">
+            <span class="final-stat__value" id="final-time">0:00</span>
+            <span class="final-stat__label">tiempo</span>
+          </div>
+        </div>
+
+        <!-- Desglose por ronda -->
+        <div class="final-breakdown" id="final-breakdown">
+          <h3 class="final-breakdown__title">Tu desempeño por ronda</h3>
+
+          <div class="final-breakdown__row">
+            <span class="final-breakdown__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 26V14L12 18V14L20 18V14L28 18V10L26 8" stroke="currentColor" stroke-width="2"
+                  stroke-linejoin="round" stroke-linecap="round" />
+                <path d="M8 26V22M14 26V22M20 26V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <div class="final-breakdown__info">
+              <span class="final-breakdown__name">Ronda 1 · Cinta transportadora</span>
+              <span class="final-breakdown__detail" id="final-round1-detail">0 de 8 aciertos</span>
+            </div>
+            <span class="final-breakdown__pts" id="final-round1-pts">0 pts</span>
+          </div>
+
+          <div class="final-breakdown__row">
+            <span class="final-breakdown__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="6" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2" />
+                <rect x="18" y="6" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2" />
+                <rect x="4" y="20" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2" />
+                <rect x="18" y="20" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <div class="final-breakdown__info">
+              <span class="final-breakdown__name">Ronda 2 · Memorama SST</span>
+              <span class="final-breakdown__detail" id="final-round2-detail">6 de 6 parejas</span>
+            </div>
+            <span class="final-breakdown__pts" id="final-round2-pts">Completado</span>
+          </div>
+
+          <div class="final-breakdown__row">
+            <span class="final-breakdown__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2" />
+                <path d="M16 16L23 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="16" cy="16" r="2" fill="currentColor" />
+              </svg>
+            </span>
+            <div class="final-breakdown__info">
+              <span class="final-breakdown__name">Ronda 3 · Ruleta</span>
+              <span class="final-breakdown__detail" id="final-round3-detail">—</span>
+            </div>
+            <span class="final-breakdown__pts" id="final-round3-pts">0 pts</span>
+          </div>
+          <div class="final-breakdown__row" hidden>
+            <span class="final-breakdown__icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 6L16 9L21 6L24 9V26H8V9L11 6Z" stroke="currentColor" stroke-width="2"
+                  stroke-linejoin="round" />
+                <circle cx="16" cy="4" r="2" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+            </span>
+            <div class="final-breakdown__info">
+              <span class="final-breakdown__name">Ronda 4 · Viste al Trabajador (módulo independiente)</span>
+              <span class="final-breakdown__detail" id="final-round4-detail">—</span>
+            </div>
+            <span class="final-breakdown__pts" id="final-round4-pts">0 pts</span>
+          </div>
+          <p class="final-breakdown__note" style="text-align:center;color:var(--ink-soft);font-size:12px;margin-top:8px">
+            La ronda 4 (EPP) se juega al inicio del recorrido, en "Viste al trabajador".
+          </p>
+        </div>
+
+        <!-- Historial / mejores puntajes guardados en este dispositivo -->
+        <div class="final-leaderboard" id="final-leaderboard">
+          <h3 class="final-breakdown__title">Mejores puntajes en este equipo</h3>
+          <ol class="final-leaderboard__list" id="final-leaderboard-list"></ol>
+          <p class="final-leaderboard__meta" id="final-leaderboard-meta">0 participantes han jugado</p>
+        </div>
+
+        <div class="final-screen__actions" style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:18px">
+          <a href="../resultados.html" class="btn btn--primary" id="continue-btn">Ver resultados finales →</a>
+          <button class="btn btn--restart" id="restart-btn" type="button">Reiniciar para el siguiente
+            participante</button>
+        </div>
+        <p id="final-autocontinue-msg" aria-live="polite" style="margin-top:10px;font-size:13px;color:#6b7280;text-align:center;">
+          Continuando automáticamente en <span id="final-autocontinue-count">6</span> s…
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ OVERLAY DE CAMBIO DE NIVEL ============ -->
+    <div id="level-up-overlay" class="level-up-overlay" hidden>
+      <div class="level-up-overlay__card">
+        <span class="level-up-overlay__eyebrow">¡Nuevo nivel!</span>
+        <h2 class="level-up-overlay__title" id="level-up-title">Nivel 1</h2>
+        <p class="level-up-overlay__subtitle" id="level-up-subtitle">Cinta transportadora</p>
+      </div>
+    </div>
+
+    <!-- GSAP: librería de animación para las transiciones "pro" de la cinta.
+         Se incluye local (js/vendor/gsap.min.js) para que funcione sin internet en el stand. -->
+    <script src="../../scripts/global-progress.js" defer></script>
+    <script src="../global-score.js" defer></script>
+    <script src="../../scripts/player-identity.js"></script>
+    <script src="js/vendor/gsap.min.js"></script>
+    <script src="js/vendor/MotionPathPlugin.min.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/main.js"></script>
+    <script defer>
+      document.getElementById('continue-btn')?.addEventListener('click', () => {
+        if (window.ProgressTracker) ProgressTracker.complete('sena');
+      });
+
+      // Continuación automática hacia Resultados finales al completar el memorama.
+      (() => {
+        const finalScreen = document.getElementById('screen-final');
+        const countEl = document.getElementById('final-autocontinue-count');
+        const msgEl = document.getElementById('final-autocontinue-msg');
+        const continueBtn = document.getElementById('continue-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        if (!finalScreen || !countEl || !continueBtn) return;
+
+        let seconds = 6;
+        let timer = null;
+        const stop = () => { if (timer) clearInterval(timer); };
+        const tick = () => {
+          seconds -= 1;
+          if (seconds <= 0) {
+            stop();
+            if (window.ProgressTracker) ProgressTracker.complete('sena');
+            window.location.href = continueBtn.getAttribute('href');
+            return;
+          }
+          countEl.textContent = String(seconds);
+        };
+        const start = () => {
+          if (timer) return;
+          seconds = 6;
+          countEl.textContent = String(seconds);
+          if (msgEl) msgEl.hidden = false;
+          timer = setInterval(tick, 1000);
+        };
+
+        continueBtn.addEventListener('click', stop);
+        restartBtn?.addEventListener('click', stop);
+
+        const observer = new MutationObserver(() => {
+          if (finalScreen.classList.contains('screen--active')) start();
+          else stop();
+        });
+        observer.observe(finalScreen, { attributes: true, attributeFilter: ['class'] });
+      })();
+    </script>
+</body>
+
+</html>
