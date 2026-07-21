@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vocal Hero - Ejercicios vocales interactivos para cuidar tu voz" />
+  <title>Vocal Hero · Zona Segura</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-sena.png" />
+  <link rel="stylesheet" href="../styles/global.css" />
+  <link rel="stylesheet" href="../styles/global-progress.css" />
+  <link rel="stylesheet" href="../styles/vocal-hero.css" />
+</head>
+<body class="vocal-hero" data-progress-stage="actividad">
+  <!-- ============== HEADER ============== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <div class="site-header__brand">
+        <span class="site-header__logo" aria-hidden="true">
+          <img src="../assets/images/logo-sena.png" alt="Logo SENA" class="site-header__logo-img" />
+        </span>
+        <div>
+          <h1 class="site-header__title">Vocal Hero</h1>
+          <p class="site-header__subtitle">Cuida tu voz con ejercicios diarios</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="screen vh-screen">
+    <div class="container vh-container">
+
+      <!-- ============== PANTALLA: INICIO ============== -->
+      <section id="screen-start" class="vh-card vh-screen-panel fade-in" aria-labelledby="vh-title">
+        <div class="vh-start__icon" aria-hidden="true">🎤</div>
+        <h2 id="vh-title" class="vh-start__title">Vocal Hero</h2>
+        <p class="vh-start__description">
+          Completa los ejercicios vocales siguiendo las instrucciones. Mantén cada sonido hasta llenar la barra de progreso.
+        </p>
+
+        <div class="vh-mic-info">
+          <span class="vh-mic-info__icon" aria-hidden="true">🎙️</span>
+          <p class="vh-mic-info__text">
+            El juego necesita tu micrófono. La barra solo avanzará cuando detecte tu voz.
+          </p>
+        </div>
+
+        <ul class="vh-start__list">
+          <li><span aria-hidden="true">🌬️</span> Respiración profunda</li>
+          <li><span aria-hidden="true">🎵</span> Resonancia y vibración</li>
+          <li><span aria-hidden="true">🗣️</span> Articulación clara</li>
+        </ul>
+
+        <div class="vh-start__actions">
+          <button id="btn-start" class="btn btn-primary btn-large">Comenzar</button>
+        </div>
+        <p class="text-small text-muted vh-start__hint">
+          💡 Cuando te lo pidamos, permite el acceso al micrófono.
+        </p>
+      </section>
+
+      <!-- ============== PANTALLA: CALIBRACIÓN ============== -->
+      <section id="screen-calibrating" class="vh-card vh-screen-panel hidden" aria-labelledby="vh-cal-title">
+        <div class="vh-cal__icon" aria-hidden="true">🎤</div>
+        <h2 id="vh-cal-title" class="vh-cal__title">Calibrando micrófono</h2>
+        <p class="vh-cal__description">
+          Permanece en silencio durante <strong>2 segundos</strong> para medir el ruido ambiente.
+        </p>
+
+        <div class="vh-cal__vu" aria-hidden="true">
+          <div class="vh-cal__vu-fill" id="vh-cal-vu-fill" style="width:0%"></div>
+        </div>
+        <div class="vh-cal__chrono" id="vh-cal-chrono" aria-live="polite">2</div>
+
+        <p id="vh-cal-noisy" class="vh-cal__noisy hidden">
+          ⚠️ El ambiente es ruidoso. Busca un lugar más tranquilo para mejores resultados.
+        </p>
+      </section>
+
+      <!-- ============== PANTALLA: ERROR DE PERMISOS ============== -->
+      <section id="screen-permission-error" class="vh-card vh-screen-panel hidden" aria-labelledby="vh-perm-title">
+        <div class="vh-err__icon" aria-hidden="true">🚫</div>
+        <h2 id="vh-perm-title" class="vh-err__title">No pudimos acceder al micrófono</h2>
+        <p class="vh-err__description">
+          Para jugar <strong>Vocal Hero</strong> necesitamos permiso del micrófono. Sin él, la barra no puede avanzar.
+        </p>
+        <ol class="vh-err__steps">
+          <li>Haz clic en el ícono de candado 🔒 en la barra de direcciones.</li>
+          <li>Permite el uso del micrófono.</li>
+          <li>Recarga la página o pulsa <strong>Reintentar</strong>.</li>
+        </ol>
+        <div class="vh-err__actions">
+          <button id="btn-retry-permission" class="btn btn-primary btn-large">Reintentar</button>
+          <a href="elegir.html" id="btn-back-from-error" class="btn btn-secondary">Probar Respiración Guiada</a>
+        </div>
+      </section>
+
+      <!-- ============== PANTALLA: EJERCICIO ============== -->
+      <section id="screen-exercise" class="vh-card vh-screen-panel hidden" aria-labelledby="vh-exercise-title">
+        <!-- Top: progreso y puntuación -->
+        <div class="vh-exercise__top">
+          <div class="vh-exercise__progress-info">
+            <span class="badge" id="vh-level-badge">Nivel 1</span>
+            <span class="text-small text-muted" id="vh-exercise-counter">Ejercicio 1 de 10</span>
+          </div>
+          <div class="vh-exercise__score" aria-label="Puntuación actual">
+            <span aria-hidden="true">⭐</span>
+            <span id="vh-score">0</span>
+          </div>
+        </div>
+
+        <div class="progress-bar vh-exercise__mini-bar" aria-hidden="true">
+          <div class="progress-bar-fill" id="vh-mini-fill" style="width:0%"></div>
+        </div>
+
+        <!-- Contenido principal del ejercicio -->
+        <div class="vh-exercise__body">
+          <div class="vh-exercise__icon" id="vh-exercise-icon" aria-hidden="true">🅰️</div>
+          <h2 id="vh-exercise-title" class="vh-exercise__title">Vocal A</h2>
+          <p id="vh-exercise-instruction" class="vh-exercise__instruction">Mantén la vocal AAAAA durante 5 segundos.</p>
+
+          <!-- Sonido destacado / secuencia de sílabas -->
+          <div id="vh-sound-display" class="vh-sound">AAAAA</div>
+
+          <!-- Barra principal -->
+          <div class="vh-progress-wrap">
+            <div class="progress-bar vh-progress">
+              <div class="progress-bar-fill" id="vh-progress-fill" style="width:0%"></div>
+            </div>
+            <div class="vh-progress-percent" id="vh-progress-percent">0%</div>
+          </div>
+
+          <!-- VU meter (indicador de nivel de micrófono) -->
+          <div class="vh-vu" aria-label="Nivel del micrófono en vivo">
+            <div class="vh-vu__label">
+              <span aria-hidden="true">🎤</span>
+              <span>Micrófono</span>
+              <span class="vh-vu__level" id="vh-vu-level">Nivel: 0</span>
+            </div>
+            <div class="vh-vu__bar">
+              <div class="vh-vu__fill" id="vh-vu-fill" style="width:0%"></div>
+            </div>
+          </div>
+
+          <!-- Cronómetro regresivo -->
+          <div class="vh-chrono" id="vh-chrono" aria-live="polite">5</div>
+
+          <!-- Acción -->
+          <button id="btn-begin-exercise" class="btn btn-primary btn-large">Comenzar ejercicio</button>
+        </div>
+      </section>
+
+      <!-- ============== PANTALLA: ÉXITO ============== -->
+      <section id="screen-success" class="vh-card vh-screen-panel hidden" aria-live="polite">
+        <div class="vh-success__check" aria-hidden="true">✓</div>
+        <h2 class="vh-success__title">¡Excelente!</h2>
+        <p class="vh-success__message">Ejercicio completado.</p>
+        <p class="vh-success__points">+<span id="vh-points-earned">10</span> puntos</p>
+        <button id="btn-skip-success" class="btn btn-ghost text-small">Saltar →</button>
+      </section>
+
+      <!-- ============== PANTALLA: ABORTADO (silencio prolongado) ============== -->
+      <section id="screen-aborted" class="vh-card vh-screen-panel hidden" aria-live="polite">
+        <div class="vh-aborted__icon" aria-hidden="true">🤫</div>
+        <h2 class="vh-aborted__title">No detectamos tu voz</h2>
+        <p class="vh-aborted__message" id="vh-aborted-message">
+          No escuchamos sonido durante mucho tiempo. Inténtalo de nuevo hablando durante el ejercicio.
+        </p>
+        <div class="vh-aborted__actions">
+          <button id="btn-retry-aborted" class="btn btn-primary btn-large">Reintentar ejercicio</button>
+          <a href="elegir.html" class="btn btn-secondary">Probar Respiración Guiada</a>
+        </div>
+      </section>
+
+      <!-- ============== PANTALLA: FINAL ============== -->
+      <section id="screen-final" class="vh-card vh-screen-panel hidden" aria-labelledby="vh-final-title">
+        <div class="vh-final__trophy" aria-hidden="true">🏆</div>
+        <h2 id="vh-final-title" class="vh-final__title">¡Rutina completada!</h2>
+        <p class="vh-final__message" id="vh-final-message">
+          Has completado tu rutina de ejercicios vocales.
+        </p>
+
+        <div class="vh-final__stats">
+          <div class="vh-stat">
+            <div class="vh-stat__icon" aria-hidden="true">⭐</div>
+            <div class="vh-stat__value" id="vh-final-score">0</div>
+            <div class="vh-stat__label">Puntos</div>
+          </div>
+          <div class="vh-stat">
+            <div class="vh-stat__icon" aria-hidden="true">✅</div>
+            <div class="vh-stat__value" id="vh-final-completed">0/10</div>
+            <div class="vh-stat__label">Ejercicios</div>
+          </div>
+          <div class="vh-stat">
+            <div class="vh-stat__icon" aria-hidden="true">⏱️</div>
+            <div class="vh-stat__value" id="vh-final-time">0:00</div>
+            <div class="vh-stat__label">Tiempo</div>
+          </div>
+        </div>
+
+        <p class="vh-final__tip">
+          💬 Recuerda practicar diariamente para cuidar tus cuerdas vocales.
+        </p>
+
+        <div class="vh-final__actions">
+          <a href="zona-segura-sena/index.html" id="vh-btn-continue" class="btn btn-primary btn-large">Continuar ahora →</a>
+          <button id="btn-replay" class="btn btn-secondary btn-large">Repetir rutina</button>
+        </div>
+        <p class="vh-final__autocontinue" id="vh-autocontinue-msg" aria-live="polite">
+          Continuando automáticamente en <span id="vh-autocontinue-count">5</span> s…
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../scripts/global-progress.js" defer></script>
+  <script src="global-score.js" defer></script>
+  <script src="../scripts/vocal-hero/exercises.js" defer></script>
+  <script src="../scripts/vocal-hero/audio.js" defer></script>
+  <script src="../scripts/vocal-hero/game.js" defer></script>
+  <script src="../scripts/vocal-hero/main.js" defer></script>
+  <script defer>
+    document.getElementById('vh-btn-continue')?.addEventListener('click', () => {
+      if (window.ProgressTracker) ProgressTracker.complete('actividad');
+    });
+
+    // Continuación automática hacia Zona Segura al completar el módulo.
+    (() => {
+      const finalScreen = document.getElementById('screen-final');
+      const countEl = document.getElementById('vh-autocontinue-count');
+      const msgEl = document.getElementById('vh-autocontinue-msg');
+      const continueBtn = document.getElementById('vh-btn-continue');
+      if (!finalScreen || !countEl || !continueBtn) return;
+
+      let seconds = 5;
+      let timer = null;
+      const stop = () => { if (timer) clearInterval(timer); };
+      const tick = () => {
+        seconds -= 1;
+        if (seconds <= 0) {
+          stop();
+          if (window.ProgressTracker) ProgressTracker.complete('actividad');
+          window.location.href = continueBtn.getAttribute('href');
+          return;
+        }
+        countEl.textContent = String(seconds);
+      };
+      const start = () => {
+        if (timer) return;
+        seconds = 5;
+        countEl.textContent = String(seconds);
+        if (msgEl) msgEl.hidden = false;
+        timer = setInterval(tick, 1000);
+      };
+
+      continueBtn.addEventListener('click', stop);
+      document.getElementById('btn-replay')?.addEventListener('click', stop);
+
+      const observer = new MutationObserver(() => {
+        if (!finalScreen.classList.contains('hidden')) start();
+        else stop();
+      });
+      observer.observe(finalScreen, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+</body>
+</html>
