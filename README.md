@@ -10,6 +10,12 @@ Plataforma web de **minijuegos para el bienestar** y la **Seguridad y Salud en e
 
 ---
 
+<p align="center">
+  <a href="https://juanezzzzz.github.io/zona-segura-sst/">
+    <img src="https://img.shields.io/badge/🎮_Probar_demo_en_vivo-39A900?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Probar demo en vivo" />
+  </a>
+</p>
+
 ## 📸 Capturas de pantalla
 
 ### 🏠 Menú principal
