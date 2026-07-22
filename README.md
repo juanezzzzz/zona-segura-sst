@@ -10,6 +10,23 @@ Plataforma web de **minijuegos para el bienestar** y la **Seguridad y Salud en e
 
 ---
 
+## 📸 Capturas de pantalla
+
+### 🏠 Menú principal
+
+![Menú principal de Zona Segura](docs/screenshots/01-menu.png)
+
+### 🎮 Los módulos y el recorrido
+
+|  |  |
+| :---: | :---: |
+| 🦺 **Viste al Trabajador (EPP)** | 🎓 **Recorrido guiado de capacitación** |
+| ![Juego Viste al Trabajador](docs/screenshots/05-epp.png) | ![Recorrido de capacitación](docs/screenshots/02-sena.png) |
+| 🗣️ **Vocal Hero** | 🌬️ **Respiración Guiada** |
+| ![Vocal Hero](docs/screenshots/03-vocal-hero.png) | ![Respiración Guiada](docs/screenshots/04-respiracion.png) |
+
+---
+
 ## 🚀 Cómo empezar
 
 No requiere instalación ni build. Solo abre el archivo principal en cualquier navegador moderno:
