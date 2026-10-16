@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es" data-base="../">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Retos SST · Zona Segura</title>
+  <meta name="theme-color" content="#12161b">
+  <link rel="icon" type="image/png" href="../assets/images/logo-sena.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=JetBrains+Mono:wght@500;700&family=Public+Sans:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/sena.css">
+</head>
+<body>
+  <div class="page">
+    <main class="page__main" id="main">
+
+      <!-- ============ INTRO ============ -->
+      <section data-screen="intro">
+        <div class="card card--pad intro-card">
+          <div>
+            <span class="eyebrow">Etapa 3 · Zona Segura SENA</span>
+            <h1 class="h1" style="margin-top:10px">Retos SST</h1>
+            <p class="lead" style="margin-top:12px">Tres rondas para demostrar que reconoces los ejes de la Seguridad y Salud en el Trabajo en situaciones reales.</p>
+            <ol class="rounds-overview">
+              <li><span class="n">1</span><span><b>Cinta transportadora</b><span>Clasifica cada situación en su eje antes de que se acabe el tiempo.</span></span><span class="chip">9 situaciones</span></li>
+              <li><span class="n">2</span><span><b>Memorama</b><span>Memoriza las cartas y encuentra cada pareja.</span></span><span class="chip">6 parejas</span></li>
+              <li><span class="n">3</span><span><b>Ruleta</b><span>Pregunta rápida o reto en vivo: ambos valen igual.</span></span><span class="chip">3 giros</span></li>
+            </ol>
+            <div class="actions">
+              <button class="btn btn--primary btn--lg" type="button" id="btn-start">Empezar ronda 1 <span aria-hidden="true">→</span></button>
+              <span class="chip">~5 minutos</span>
+            </div>
+          </div>
+          <div class="intro-card__art ejes-art" aria-hidden="true">
+            <img src="../assets/images/eje-higiene.png" alt="">
+            <img src="../assets/images/eje-mental.png" alt="">
+            <img src="../assets/images/eje-medicina.png" alt="">
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ RONDA 1 · CINTA ============ -->
+      <section data-screen="r1" hidden>
+        <div class="module-head">
+          <div class="module-head__text">
+            <span class="eyebrow" id="r1-eyebrow">Ronda 1 · Situación 1 de 9</span>
+            <h1 class="h1">Cinta transportadora</h1>
+          </div>
+          <div class="hud">
+            <div class="hud__item"><span class="hud__label">Vidas</span><span class="lives" id="r1-lives"></span></div>
+            <div class="hud__item"><span class="hud__label">Racha</span><span class="hud__value" id="r1-streak">0</span></div>
+            <div class="hud__item"><span class="hud__label">Puntos</span><span class="hud__value" id="r1-score">0</span></div>
+          </div>
+        </div>
+        <div class="conveyor" id="conveyor">
+          <span class="conveyor__badge" id="r1-badge" hidden></span>
+          <div id="belt-slot" style="width:100%;display:grid;place-items:center"></div>
+          <div class="conveyor__rollers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="bins" id="bins" role="group" aria-label="Ejes de la SST"></div>
+        <div class="r-feedback" id="r1-feedback" aria-live="polite" hidden></div>
+      </section>
+
+      <!-- ============ RONDA 2 · MEMORAMA ============ -->
+      <section data-screen="r2" hidden>
+        <div class="module-head">
+          <div class="module-head__text">
+            <span class="eyebrow">Ronda 2 de 3</span>
+            <h1 class="h1">Memorama SST</h1>
+          </div>
+          <div class="hud">
+            <div class="hud__item"><span class="hud__label">Errores</span><span class="lives" id="r2-lives"></span></div>
+            <div class="hud__item"><span class="hud__label">Parejas</span><span class="hud__value" id="r2-pairs">0/6</span></div>
+          </div>
+        </div>
+        <div class="memo-bar">
+          <span class="chip chip--yellow memo-preview" id="r2-status" aria-live="polite">Memoriza las cartas…</span>
+          <span class="muted" style="font-size:14px">Cada carta tiene una gemela idéntica.</span>
+        </div>
+        <div class="memo-grid" id="memo-grid"></div>
+        <div class="r-feedback" id="r2-feedback" aria-live="polite" hidden></div>
+      </section>
+
+      <!-- ============ RONDA 3 · RULETA ============ -->
+      <section data-screen="r3" hidden>
+        <div class="module-head">
+          <div class="module-head__text">
+            <span class="eyebrow">Ronda 3 de 3</span>
+            <h1 class="h1">Ruleta Zona Segura</h1>
+          </div>
+          <div class="hud">
+            <div class="hud__item"><span class="hud__label">Puntos</span><span class="hud__value" id="r3-score">0</span></div>
+          </div>
+        </div>
+        <div class="wheel-layout">
+          <div class="wheel-box">
+            <div class="wheel-pointer" aria-hidden="true"></div>
+            <svg class="wheel" id="wheel" viewBox="0 0 300 300" aria-hidden="true"></svg>
+            <div class="wheel-hub" aria-hidden="true"><img src="../assets/images/logo-sena.png" alt=""></div>
+          </div>
+          <div class="card card--pad r3-panel" id="r3-panel" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- ============ ENTRE RONDAS ============ -->
+      <section data-screen="between" hidden>
+        <div class="result">
+          <div class="result__badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </div>
+          <span class="eyebrow" id="bt-eyebrow">Ronda 1 completada</span>
+          <h1 class="h1" style="margin-top:8px" id="bt-title"></h1>
+          <p class="lead" style="margin-top:10px" id="bt-text"></p>
+          <div class="stats" id="bt-stats"></div>
+          <div class="actions"><button class="btn btn--primary btn--lg" type="button" id="bt-next"></button></div>
+        </div>
+      </section>
+
+      <!-- ============ RESULTADO ============ -->
+      <section data-screen="done" hidden>
+        <div class="result">
+          <div class="result__badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M17 5h3v2a3 3 0 01-3 3M7 5H4v2a3 3 0 003 3"/></svg>
+          </div>
+          <span class="eyebrow">Etapa 3 completada</span>
+          <h1 class="h1" style="margin-top:8px" id="done-title">¡Retos superados!</h1>
+          <p class="result__points"><span id="done-points">0</span> <small>/ 400 PTS</small></p>
+          <ul class="round-summary" id="done-rounds"></ul>
+          <div class="actions">
+            <button class="btn btn--primary btn--lg" type="button" id="btn-continue">Ver mis resultados finales <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../js/core.js"></script>
+  <script src="../js/data.js"></script>
+  <script src="../js/sena.js"></script>
+</body>
+</html>

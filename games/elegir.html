@@ -1,103 +1,55 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-base="../">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elige tu camino · Zona Segura</title>
-<link rel="icon" type="image/png" href="../assets/images/logo-sena.png" />
-<link rel="stylesheet" href="../styles/global-progress.css" />
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-
-:root {
-  --ink: #14171A;
-  --ink-2: #1D2229;
-  --ink-3: #262C34;
-  --paper: #F5F2E9;
-  --green: #39A900;
-  --blue: #0B7FD6;
-  --orange: #FF8A00;
-  --yellow: #FFC400;
-  --text-dim: #A6ACB2;
-  --text-dim-2: #6B7076;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; background: var(--ink); color: var(--paper); min-height: 100vh; }
-a { color: inherit; text-decoration: none; }
-
-.hazard-rule { height: 8px; width: 100%; background: repeating-linear-gradient(135deg, var(--yellow) 0 18px, var(--ink) 18px 36px); }
-
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 6vw; }
-.nav__brand { display: flex; align-items: center; gap: 10px; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 15px; letter-spacing: 0.04em; }
-.nav__logo { width: 44px; height: 44px; flex-shrink: 0; object-fit: contain; }
-.nav__step { font-family: 'Space Mono', monospace; font-size: 12.5px; color: var(--text-dim-2); }
-
-.wrap { max-width: 880px; margin: 0 auto; padding: 30px 6vw 100px; text-align: center; }
-
-.eyebrow { font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--yellow); margin-bottom: 14px; }
-.title { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 4.5vw, 42px); line-height: 1.1; text-transform: uppercase; }
-.subtitle { margin: 18px auto 0; max-width: 520px; font-size: 15.5px; line-height: 1.6; color: var(--text-dim); }
-
-.choices { margin-top: 50px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; text-align: left; }
-
-.choice { display: flex; flex-direction: column; background: var(--ink-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; transition: transform 0.15s ease, border-color 0.15s ease; }
-.choice:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.2); }
-
-.choice__icon { font-size: 34px; margin-bottom: 14px; }
-.choice__title { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
-.choice__text { font-size: 13.5px; line-height: 1.55; color: var(--text-dim); flex-grow: 1; }
-.choice__tag { margin-top: 18px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
-
-.choice.is-blue .choice__tag { color: var(--blue); }
-.choice.is-orange .choice__tag { color: var(--orange); }
-
-.choice__cta { margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14.5px; }
-.choice.is-blue .choice__cta { color: var(--blue); }
-.choice.is-orange .choice__cta { color: var(--orange); }
-
-@media (max-width: 640px) {
-  .choices { grid-template-columns: 1fr; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elige tu pausa · Zona Segura</title>
+  <meta name="theme-color" content="#12161b">
+  <link rel="icon" type="image/png" href="../assets/images/logo-sena.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=JetBrains+Mono:wght@500;700&family=Public+Sans:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/bienestar.css">
 </head>
-<body data-progress-stage="actividad">
+<body>
+  <div class="page">
+    <main class="page__main" id="main">
+      <span class="eyebrow">Etapa 2 · Bienestar</span>
+      <h1 class="h1" style="margin-top:10px" id="choose-title">Hora de una pausa activa</h1>
+      <p class="lead" style="margin-top:12px;max-width:62ch">El autocuidado también es seguridad. Elige <strong>uno</strong> de los dos ejercicios: ambos valen lo mismo en tu puntaje.</p>
 
-<div class="hazard-rule"></div>
+      <div class="choices">
+        <a class="card choice" href="vocal-hero.html">
+          <div class="choice__art" aria-hidden="true"><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="choice__body">
+            <h2 class="h2">Vocal Hero</h2>
+            <p>10 ejercicios cortos para calentar y cuidar tu voz. La barra solo avanza cuando el micrófono te escucha.</p>
+            <div class="choice__meta"><span class="chip chip--yellow">🎤 Usa micrófono</span><span class="chip">~4 min</span></div>
+            <span class="choice__go">Elegir Vocal Hero <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
 
-<nav class="nav">
-  <div class="nav__brand">
-    <img src="../assets/images/logo-sena.png" alt="Logo SENA" class="nav__logo" />
-    ZONA SEGURA
+        <a class="card choice" href="respiracion-guiada.html">
+          <div class="choice__art" aria-hidden="true"><div class="breath-art"></div></div>
+          <div class="choice__body">
+            <h2 class="h2">Respiración guiada</h2>
+            <p>5 ciclos de respiración cuadrada 4-4-6-2 para bajar el estrés antes de los retos finales.</p>
+            <div class="choice__meta"><span class="chip chip--green">🌿 Sin micrófono</span><span class="chip">80 segundos</span></div>
+            <span class="choice__go">Elegir Respiración <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </main>
   </div>
-  <span class="nav__step">ETAPA 2 DE 4</span>
-</nav>
 
-<main class="wrap">
-  <p class="eyebrow">Recorrido de capacitación</p>
-  <h1 class="title">Elige tu camino</h1>
-  <p class="subtitle">Escoge uno de los dos ejercicios. Al terminarlo, continúas automáticamente a Zona Segura.</p>
-
-  <div class="choices">
-    <a class="choice is-blue" href="vocal-hero.html">
-      <div class="choice__icon" aria-hidden="true">🎤</div>
-      <h2 class="choice__title">Vocal Hero</h2>
-      <p class="choice__text">10 ejercicios vocales con detección de voz en tiempo real. La barra solo avanza cuando te escuchamos.</p>
-      <span class="choice__tag">Usa micrófono · ~4 min</span>
-      <span class="choice__cta">Empezar →</span>
-    </a>
-
-    <a class="choice is-orange" href="respiracion-guiada.html">
-      <div class="choice__icon" aria-hidden="true">🌬️</div>
-      <h2 class="choice__title">Respiración guiada</h2>
-      <p class="choice__text">Box breathing 4-4-6-2 con visualización animada. 5 ciclos para reducir el estrés antes de seguir.</p>
-      <span class="choice__tag">80 segundos</span>
-      <span class="choice__cta">Empezar →</span>
-    </a>
-  </div>
-</main>
-
-<script src="../scripts/global-progress.js" defer></script>
+  <script src="../js/core.js"></script>
+  <script>
+    (function () {
+      if (!ZS.journey.mount('bienestar')) return;
+      var p = ZS.store.get().player;
+      if (p) document.getElementById('choose-title').textContent = 'Hora de una pausa activa, ' + p.name.split(' ')[0];
+    })();
+  </script>
 </body>
 </html>

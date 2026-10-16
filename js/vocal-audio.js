@@ -1,5 +1,5 @@
 /* ============================================
-   VOCAL HERO - Módulo de audio (detección de voz real)
+   Vocal Hero · Módulo de audio (detección de voz real)
    Web Audio API + AnalyserNode + RMS + calibración.
 
    API expuesta en window.VocalHeroAudio:
