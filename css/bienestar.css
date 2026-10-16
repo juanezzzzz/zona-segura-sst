@@ -12,7 +12,7 @@
 }
 .choice:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .choice:focus-visible { border-radius: var(--r-lg); }
-.choice__art { height: 180px; background: var(--ink); display: grid; place-items: center; position: relative; overflow: hidden; }
+.choice__art { height: 220px; background: var(--ink); display: grid; place-items: center; position: relative; overflow: hidden; }
 .choice__body { padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .choice__body p { color: var(--text-2); }
 .choice__meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
@@ -35,7 +35,7 @@
 .breath-art { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #9be36a, var(--green) 55%, var(--green-strong)); animation: breath-art 8s ease-in-out infinite; box-shadow: 0 0 0 14px rgba(57, 169, 0, 0.15), 0 0 0 30px rgba(57, 169, 0, 0.07); }
 @keyframes breath-art { 0%, 100% { transform: scale(0.62); } 40%, 55% { transform: scale(1); } }
 
-@media (max-width: 760px) { .choices { grid-template-columns: 1fr; } .choice__art { height: 130px; } }
+@media (max-width: 760px) { .choices { grid-template-columns: 1fr; } .choice__art { height: 170px; } }
 
 /* ==========================================================
    Vocal Hero
@@ -151,3 +151,9 @@
 .phases-legend span { font-size: 13px; font-weight: 700; color: var(--text-2); }
 .phases-legend { padding: 0; }
 @media (max-width: 480px) { .phases-legend { grid-template-columns: repeat(2, 1fr); } }
+
+/* Versiones mini para las insignias sobre foto */
+.bars--mini { height: 22px; gap: 3px; }
+.bars--mini i { width: 4px; border-radius: 2px; }
+.breath-art--mini { width: 24px; height: 24px; flex-shrink: 0; box-shadow: 0 0 0 4px rgba(57, 169, 0, 0.25); }
+.choice__art.has-photo { display: grid; place-items: end start; }

@@ -8,10 +8,9 @@
 .rounds-overview span { color: var(--text-2); font-size: 14.5px; }
 .rounds-overview .chip { font-size: 12px; }
 
-.ejes-art { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 28px; }
-.ejes-art img { width: 100%; max-width: 110px; border-radius: 22px; margin: 0 auto; box-shadow: 0 16px 30px -12px rgba(0, 0, 0, 0.7); }
-.ejes-art img:nth-child(2) { transform: translateY(-18px) rotate(3deg); }
-.ejes-art img:nth-child(1) { transform: rotate(-4deg); }
+.ejes-badge { gap: 6px; padding-left: 8px; }
+.ejes-badge img { width: 30px; height: 30px; border-radius: 8px; }
+.ejes-badge > span { margin-left: 6px; }
 
 .round-tabs { display: flex; gap: 6px; list-style: none; padding: 0; flex-wrap: wrap; }
 .round-tabs li { padding: 6px 12px; border-radius: var(--r-pill); font-size: 13px; font-weight: 700; color: var(--text-3); background: var(--card); border: 1px solid var(--line); }

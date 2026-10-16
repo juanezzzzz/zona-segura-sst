@@ -70,7 +70,7 @@ js/
   core.js                  Estado único, guardia de etapas, barra superior, UI y sonido
   data.js                  Todo el contenido pedagógico (situaciones, EPP, preguntas…)
   home.js · registro.js · epp.js · vocal.js · vocal-audio.js · respiracion.js · sena.js · resultados.js
-assets/                    Imágenes (EPP, ejes, logo) y sonido
+assets/                    Imágenes (EPP, ejes, logo, fotos CC0) y sonido
 ```
 
 ### Puntaje
@@ -91,6 +91,10 @@ Todo vive en el navegador (`localStorage`): `zs:v2` (recorrido actual), `zs:hist
 ### Cambiar el contenido
 
 Las situaciones, el catálogo de EPP, las respuestas por oficio, las preguntas de la ruleta, los retos y los ejercicios están en [`js/data.js`](js/data.js). Agregar una situación o una pregunta no requiere tocar la lógica.
+
+### Fotografías
+
+Las fotos de `assets/images/fotos/` (oficios, ejes y bienestar) son de **dominio público (CC0)**, encontradas con [Openverse](https://openverse.org) y optimizadas a WebP. Las fuentes de cada una están en [`assets/images/fotos/CREDITOS.md`](assets/images/fotos/CREDITOS.md). Las ilustraciones de los trabajadores y los íconos de los ejes son propios del proyecto.
 
 ## Accesibilidad
 

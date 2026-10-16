@@ -39,7 +39,7 @@
 
   const $ = (id) => document.getElementById(id);
   const el = {
-    eyebrow: $('area-eyebrow'), title: $('area-title'), brief: $('area-brief'),
+    eyebrow: $('area-eyebrow'), title: $('area-title'), brief: $('area-brief'), photo: $('area-photo'),
     areas: $('areas'), figure: $('figure'), img: $('figure-img'), zones: $('zones'),
     count: $('zones-count'), feedback: $('epp-feedback'), hint: $('actions-hint'),
     check: $('btn-check'), next: $('btn-next'), score: $('hud-score'), correctHud: $('hud-correct'),
@@ -175,6 +175,8 @@
     el.eyebrow.textContent = 'Oficio ' + (st.index + 1) + ' de ' + AREAS.length;
     el.title.textContent = a.name;
     el.brief.textContent = a.brief;
+    el.photo.src = (document.documentElement.dataset.base || '') + 'assets/images/fotos/' + a.id + '.webp';
+    el.photo.alt = 'Foto de referencia: trabajo de ' + a.name.toLowerCase();
     el.feedback.hidden = true;
     el.figure.classList.remove('is-checked');
     el.next.innerHTML = st.index < AREAS.length - 1 ? 'Siguiente oficio <span aria-hidden="true">→</span>' : 'Ver mi resultado <span aria-hidden="true">→</span>';

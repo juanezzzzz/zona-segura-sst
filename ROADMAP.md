@@ -45,6 +45,7 @@ Ruta de desarrollo de Zona Segura, ordenada por impacto. Cada fase se puede entr
 - [x] Al quedarse sin vidas se puede reintentar o seguir adelante; ya no hay bloqueos.
 - [x] Recorrido más corto (~8 min): 3 oficios de EPP sorteados, 6 ejercicios vocales, 3 ciclos de respiración, 6 situaciones en la cinta, 4 parejas y 2 giros.
 - [x] Cinta con más tiempo por situación (15 s a 9 s, antes 12 s a 7 s).
+- [x] Fotos reales de dominio público (CC0, vía Openverse) en el inicio, el registro, la ficha de cada oficio, Bienestar y Retos SST; se eliminaron las imágenes encimadas.
 - [x] Inicio rediseñado: cuadrilla de trabajadores con EPP en el hero, paradas con ilustración propia, bloque «¿Se complica? Sáltalo.», podio del equipo y navegación fija con botón de inicio.
 
 ---

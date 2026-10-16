@@ -51,15 +51,17 @@
 
       <div class="hero__art" aria-hidden="true">
         <div class="crew">
+          <img class="crew__bg" src="assets/images/fotos/industria.webp" alt="">
           <div class="crew__spot"></div>
-          <img class="crew__w crew__w--1" src="assets/images/epps/ganaderia/vestido.png" alt="">
-          <img class="crew__w crew__w--2" src="assets/images/epps/soldadura/vestido.png" alt="">
-          <img class="crew__w crew__w--3" src="assets/images/epps/cocina/vestido.png" alt="">
-          <img class="crew__w crew__w--4" src="assets/images/epps/maquinaria/vestido.png" alt="">
+          <div class="crew__line">
+            <img class="crew__w" src="assets/images/epps/ganaderia/vestido.png" alt="">
+            <img class="crew__w" src="assets/images/epps/soldadura/vestido.png" alt="">
+            <img class="crew__w" src="assets/images/epps/cocina/vestido.png" alt="">
+            <img class="crew__w" src="assets/images/epps/maquinaria/vestido.png" alt="">
+          </div>
           <div class="crew__floor"></div>
           <span class="float-chip float-chip--ok"><i>✓</i>Careta de soldar</span>
           <span class="float-chip float-chip--pts">+50 pts</span>
-          <span class="float-chip float-chip--warn"><i>!</i>¿Y los guantes?</span>
           <div class="mini-score">
             <span>PUNTAJE</span>
             <b>825<small>/1000</small></b>
@@ -133,6 +135,33 @@
         </ol>
       </section>
 
+      <!-- ================= OFICIOS ================= -->
+      <section class="section section--tight" aria-labelledby="oficios-title">
+        <div class="section__head">
+          <span class="eyebrow">Oficios reales</span>
+          <h2 class="h1" id="oficios-title">Cada trabajo, sus riesgos</h2>
+          <p>En la primera etapa equipas a trabajadores de estos oficios. Mira bien: el EPP correcto depende de lo que cada uno enfrenta.</p>
+        </div>
+        <ul class="trades">
+          <li class="trade">
+            <img src="assets/images/fotos/soldadura.webp" alt="Soldador con careta trabajando una pieza de metal" loading="lazy">
+            <div class="trade__body"><b>Soldadura</b><span>Chispas, radiación UV y ruido</span></div>
+          </li>
+          <li class="trade">
+            <img src="assets/images/fotos/cocina.webp" alt="Cocinero de espaldas en una cocina industrial" loading="lazy">
+            <div class="trade__body"><b>Cocina</b><span>Calor, cortes y contaminación de alimentos</span></div>
+          </li>
+          <li class="trade">
+            <img src="assets/images/fotos/ganaderia.webp" alt="Trabajador vaciando alimento para el ganado en un corral" loading="lazy">
+            <div class="trade__body"><b>Ganadería</b><span>Sol, animales y terreno irregular</span></div>
+          </li>
+          <li class="trade">
+            <img src="assets/images/fotos/maquinaria.webp" alt="Operaria manejando un torno en un taller" loading="lazy" style="object-position:50% 30%">
+            <div class="trade__body"><b>Maquinaria</b><span>Partes móviles, golpes y poca visibilidad</span></div>
+          </li>
+        </ul>
+      </section>
+
       <!-- ================= SIN PRESIÓN ================= -->
       <section class="section section--tight" aria-labelledby="easy-title">
         <div class="easy">
@@ -167,25 +196,34 @@
         </div>
         <div class="ejes">
           <article class="eje eje--higiene">
-            <img src="assets/images/eje-higiene.png" alt="">
+            <div class="eje__photo"><img src="assets/images/fotos/industria.webp" alt="Inspectores con casco y gafas de seguridad en una planta" loading="lazy"></div>
+            <div class="eje__body">
+            <img class="eje__icon" src="assets/images/eje-higiene.png" alt="">
             <span class="eje__key" aria-hidden="true">1</span>
             <h3 class="h3">Higiene y seguridad industrial</h3>
             <p>Elementos de protección, señalización y condiciones seguras del entorno.</p>
             <p class="eje__eg"><b>Ejemplo:</b> señalizar un piso mojado.</p>
+            </div>
           </article>
           <article class="eje eje--mental">
-            <img src="assets/images/eje-mental.png" alt="">
+            <div class="eje__photo"><img src="assets/images/fotos/equipo.webp" alt="Equipo de trabajo conversando alrededor de una mesa" loading="lazy"></div>
+            <div class="eje__body">
+            <img class="eje__icon" src="assets/images/eje-mental.png" alt="">
             <span class="eje__key" aria-hidden="true">2</span>
             <h3 class="h3">Mentalmente saludable</h3>
             <p>Bienestar emocional, convivencia y manejo del estrés en la formación.</p>
             <p class="eje__eg"><b>Ejemplo:</b> resolver un conflicto con diálogo.</p>
+            </div>
           </article>
           <article class="eje eje--medicina">
-            <img src="assets/images/eje-medicina.png" alt="">
+            <div class="eje__photo"><img src="assets/images/fotos/vacunacion.webp" alt="Enfermera aplicando una vacuna" loading="lazy"></div>
+            <div class="eje__body">
+            <img class="eje__icon" src="assets/images/eje-medicina.png" alt="">
             <span class="eje__key" aria-hidden="true">3</span>
             <h3 class="h3">Medicina laboral</h3>
             <p>Prevención, atención en salud y hábitos que protegen la vida.</p>
             <p class="eje__eg"><b>Ejemplo:</b> una jornada de vacunación.</p>
+            </div>
           </article>
         </div>
       </section>
@@ -219,7 +257,7 @@
 
   <footer class="home-foot">
     <span class="brand"><img src="assets/images/logo-sena.png" alt=""><span>Seguridad y Salud en el Trabajo · SENA</span></span>
-    <span>Formación para la vida y el trabajo.</span>
+    <span>Fotos de dominio público (CC0) · <a href="assets/images/fotos/CREDITOS.md">créditos</a></span>
   </footer>
 
   <script src="js/core.js"></script>

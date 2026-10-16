@@ -1,9 +1,9 @@
 /* ==========================================================
    Etapa 1 · Viste al trabajador
    ========================================================== */
-.epp-art { padding: 28px 20px 0; display: flex; align-items: flex-end; justify-content: center; gap: 0; }
-.epp-art img { height: 250px; width: auto; margin: 0 -18px; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45)); }
-.epp-art img:nth-child(2) { height: 280px; position: relative; z-index: 1; }
+.epp-art { padding: 28px 20px 10px; display: flex; align-items: flex-end; justify-content: center; gap: clamp(6px, 2vw, 18px); }
+.epp-art img { height: auto; width: 30%; max-height: 250px; object-fit: contain; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45)); }
+.epp-art img:nth-child(2) { max-height: 280px; width: 33%; }
 .epp-art::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
   background: repeating-linear-gradient(135deg, var(--yellow) 0 14px, var(--ink) 14px 28px);
@@ -35,7 +35,8 @@
 
 /* Escenario con el personaje */
 .stage-card { padding: 22px; position: relative; overflow: hidden; }
-.stage-card__brief { display: flex; gap: 12px; align-items: flex-start; }
+.stage-card__brief { display: flex; gap: 14px; align-items: center; }
+.brief-photo { width: 96px; height: 72px; flex-shrink: 0; border-radius: 12px; object-fit: cover; background: var(--paper-2); }
 .stage-card__brief p { color: var(--text-2); font-size: 15px; margin-top: 4px; }
 .figure {
   position: relative;
