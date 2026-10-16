@@ -39,6 +39,14 @@ Ruta de desarrollo de Zona Segura, ordenada por impacto. Cada fase se puede entr
 - [x] Resultados: medidor, niveles, logros alcanzables, ranking local y certificado imprimible.
 - [x] Limpieza de imágenes, eliminación de duplicados y de dependencias.
 
+## ✅ Fase 0.5 · Menos fricción (hecho)
+
+- [x] **Saltar etapa** desde la barra superior (con confirmación, conserva los puntos ganados) y **Saltar ronda** en cada reto.
+- [x] Al quedarse sin vidas se puede reintentar o seguir adelante; ya no hay bloqueos.
+- [x] Recorrido más corto (~8 min): 3 oficios de EPP sorteados, 6 ejercicios vocales, 3 ciclos de respiración, 6 situaciones en la cinta, 4 parejas y 2 giros.
+- [x] Cinta con más tiempo por situación (15 s a 9 s, antes 12 s a 7 s).
+- [x] Inicio rediseñado: cuadrilla de trabajadores con EPP en el hero, paradas con ilustración propia, bloque «¿Se complica? Sáltalo.», podio del equipo y navegación fija con botón de inicio.
+
 ---
 
 ## Fase 1 · Calidad y confianza (corto plazo)
@@ -81,4 +89,5 @@ Ruta de desarrollo de Zona Segura, ordenada por impacto. Cada fase se puede entr
 2. **El error enseña**: toda respuesta incorrecta muestra la correcta y el porqué.
 3. **Puntaje honesto**: lo que se ve durante el juego es exactamente lo que suma al total; la suerte nunca resta.
 4. **Sin sorpresas**: nada navega solo; los reinicios piden confirmación.
-5. **Para todos**: teclado, lectores de pantalla, movimiento reducido y móvil desde el inicio.
+5. **Nadie se queda atascado**: todo reto difícil tiene una salida visible y sin castigo extra.
+6. **Para todos**: teclado, lectores de pantalla, movimiento reducido y móvil desde el inicio.

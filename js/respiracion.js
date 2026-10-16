@@ -1,7 +1,7 @@
 /* ==========================================================
    Etapa 2 · Respiración guiada 4-4-6-2
    Puntaje crudo: 10 por ciclo + 20 por completar + 50 si no se pausó.
-   Máximo: 5 × 10 + 20 + 50 = 120.
+   Máximo: 3 × 10 + 20 + 50 = 100.
    ========================================================== */
 (function () {
   'use strict';
@@ -141,8 +141,8 @@
     $('st-time').textContent = ui.formatDuration(Date.now() - st.startedAt);
     $('done-title').textContent = st.pauses === 0 ? '¡Calma total!' : '¡Sesión completada!';
     $('done-text').textContent = st.pauses === 0
-      ? 'Cinco ciclos seguidos, sin pausas. Usa esta técnica antes de una tarea de alto riesgo o tras un momento tenso.'
-      : 'Completaste los cinco ciclos. Con práctica podrás hacerlos de corrido y ganar la bonificación de concentración.';
+      ? 'Tres ciclos seguidos, sin pausas. Usa esta técnica antes de una tarea de alto riesgo o tras un momento tenso.'
+      : 'Completaste los tres ciclos. Con práctica podrás hacerlos de corrido y ganar la bonificación de concentración.';
     ui.showScreen('done');
     ui.animateNumber($('done-points'), points, 900);
     sfx.win();
@@ -159,6 +159,7 @@
     else if (!el.paused.hidden) { e.preventDefault(); resume(); }
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+  journey.partial(() => ({ raw: st.raw, max: MAX_RAW, module: 'respiracion', detail: { cycles: Math.min(st.cycle || 0, P.cycles), pauses: st.pauses || 0 } }));
   $('btn-continue').addEventListener('click', () => {
     journey.next('bienestar', { raw: st.raw, max: MAX_RAW, module: 'respiracion', detail: { cycles: P.cycles, pauses: st.pauses } });
   });

@@ -11,6 +11,23 @@
     .join('');
   host.innerHTML = cards + cards; // duplicado para el bucle continuo
 
+  // ---------- Navegación fija: borde y botón al bajar ----------
+  const nav = document.querySelector('.home-nav');
+  const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 280);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ---------- Podio del equipo (solo si ya hay participantes) ----------
+  const hist = store.history.list();
+  if (hist.length) {
+    const top = hist.slice().sort((a, b) => b.points - a.points || a.durationMs - b.durationMs).slice(0, 3);
+    document.getElementById('podio').innerHTML = top.map((h, i) =>
+      '<li><span class="pos">' + (i + 1) + '</span><span class="who">' + ui.esc(h.name) + '<small>' + ui.esc(h.role || '') + ' · ' + ui.formatDuration(h.durationMs || 0) + '</small></span><span class="pts">' + h.points + '</span></li>'
+    ).join('');
+    document.getElementById('podio-meta').textContent = ui.plural(hist.length, 'participante ha', 'participantes han') + ' completado el recorrido en este equipo. ¿Puedes superarlos?';
+    document.getElementById('podio-wrap').hidden = false;
+  }
+
   // ---------- Recorrido en curso ----------
   const s = store.get();
   if (!s.player) return;
@@ -24,7 +41,10 @@
 
   main.href = target;
   main.innerHTML = (finished ? 'Ver mis resultados' : 'Continuar recorrido') + ' <span aria-hidden="true">→</span>';
-  ui.$$('.js-cta').forEach((a) => { a.href = target; a.firstChild.textContent = finished ? 'Ver mis resultados ' : 'Continuar recorrido '; });
+  ui.$$('.js-cta').forEach((a) => {
+    a.href = target;
+    a.firstChild.textContent = a.classList.contains('home-nav__cta') ? (finished ? 'Resultados' : 'Continuar') : finished ? 'Ver mis resultados ' : 'Continuar recorrido ';
+  });
   reset.hidden = false;
 
   const name = s.player.name;

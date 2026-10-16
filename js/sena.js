@@ -1,10 +1,11 @@
 /* ==========================================================
    Etapa 3 · Retos SST
    Ronda 1 (cinta):   10 por acierto + 5 si es rápido; la situación final vale doble.
-                      Máx: 8 × 15 + 30 = 150
-   Ronda 2 (memorama): 15 por pareja − 3 por error.  Máx: 6 × 15 = 90
-   Ronda 3 (ruleta):  15 por pregunta acertada o reto cumplido. Máx: 3 × 15 = 45
-   Total crudo máximo: 285
+                      Máx: 5 × 15 + 30 = 105
+   Ronda 2 (memorama): 15 por pareja − 3 por error.  Máx: 4 × 15 = 60
+   Ronda 3 (ruleta):  15 por pregunta acertada o reto cumplido. Máx: 2 × 15 = 30
+   Total crudo máximo: 195
+   Cada ronda se puede saltar conservando lo ganado en ella.
    ========================================================== */
 (function () {
   'use strict';
@@ -16,9 +17,9 @@
   const $ = (id) => document.getElementById(id);
   const IMG = (document.documentElement.dataset.base || '') + 'assets/images/';
 
-  const R1 = { COUNT_PER_EJE: 3, PER: 10, FAST: 5, LIVES: 3, BASE_S: 12, MIN_S: 7, STEP_S: 0.6 };
-  const R2 = { CONCEPTS: 3, EPP: 3, PER: 15, MISS: 3, LIVES: 6, PREVIEW_S: 5 };
-  const R3 = { SPINS: 3, PER: 15, CHALLENGE_S: 20 };
+  const R1 = { COUNT_PER_EJE: 2, PER: 10, FAST: 5, LIVES: 3, BASE_S: 15, MIN_S: 9, STEP_S: 0.8 };
+  const R2 = { CONCEPTS: 2, EPP: 2, PER: 15, MISS: 3, LIVES: 5, PREVIEW_S: 5 };
+  const R3 = { SPINS: 2, PER: 15, CHALLENGE_S: 20 };
   const MAX = {
     r1: (R1.COUNT_PER_EJE * 3 - 1) * (R1.PER + R1.FAST) + (R1.PER + R1.FAST) * 2,
     r2: (R2.CONCEPTS + R2.EPP) * R2.PER,
@@ -195,6 +196,7 @@
     $('r1-streak').textContent = String(r1.streak);
 
     setTimeout(() => {
+      if (active !== 'r1') return;
       if (r1.lives <= 0) return gameOverR1();
       if (r1.i < r1.order.length - 1) { r1.i += 1; nextCardR1(); }
       else finishR1();
@@ -202,21 +204,23 @@
   }
 
   async function gameOverR1() {
-    await ui.dialog({
+    const retry = await ui.dialog({
       eyebrow: 'Ronda 1',
       title: 'Te quedaste sin vidas',
-      text: 'Acertaste ' + r1.correct + ' situaciones. Lee con calma: la pista suele estar en quién actúa y para qué. Vuelve a intentarlo con situaciones nuevas.',
-      actions: [{ label: 'Reintentar ronda 1', value: true, variant: 'primary' }],
+      text: 'Acertaste ' + r1.correct + ' situaciones. La pista suele estar en quién actúa y para qué. Puedes reintentar con situaciones nuevas o seguir con los puntos que ya tienes.',
+      actions: [{ label: 'Seguir a la ronda 2', value: false, variant: 'ghost' }, { label: 'Reintentar ronda 1', value: true, variant: 'primary' }],
       dismissible: false,
     });
-    startR1();
+    if (retry) startR1(); else finishR1(true);
   }
 
-  function finishR1() {
-    results.r1 = { raw: r1.score, correct: r1.correct, total: r1.order.length, best: r1.best };
+  function finishR1(skipped) {
+    cancelAnimationFrame(r1.raf);
+    r1.answered = true;
+    results.r1 = { raw: r1.score, correct: r1.correct, total: r1.order.length, best: r1.best, skipped: !!skipped };
     between({
       eyebrow: 'Ronda 1 completada',
-      title: r1.correct === r1.order.length ? '¡Clasificación perfecta!' : '¡Cinta despejada!',
+      title: skipped ? 'Ronda 1 terminada' : r1.correct === r1.order.length ? '¡Clasificación perfecta!' : '¡Cinta despejada!',
       text: 'Clasificaste bien ' + r1.correct + ' de ' + r1.order.length + ' situaciones.',
       stats: [[toPts(r1.score) + ' pts', 'Ronda 1'], [r1.correct + '/' + r1.order.length, 'Aciertos'], [r1.best + '', 'Mejor racha']],
       next: 'Ir a la ronda 2: Memorama',
@@ -308,7 +312,7 @@
       ui.floatPoints(b.el, '+' + toPts(R2.PER));
       sfx.correct();
       r2.locked = false;
-      if (r2.pairs === r2.cards.length / 2) setTimeout(finishR2, 900);
+      if (r2.pairs === r2.cards.length / 2) setTimeout(() => { if (active === 'r2') finishR2(); }, 900);
     } else {
       r2.misses += 1;
       r2.lives -= 1;
@@ -317,6 +321,7 @@
       sfx.wrong();
       setTimeout(() => {
         [a, b].forEach((c) => { c.el.classList.remove('is-up', 'is-miss'); c.el.setAttribute('aria-label', 'Carta boca abajo'); });
+        if (active !== 'r2') return;
         if (r2.lives <= 0) return penaltyR2();
         r2.locked = false;
       }, 900);
@@ -325,23 +330,28 @@
 
   async function penaltyR2() {
     const challenge = data.CHALLENGES[Math.floor(Math.random() * data.CHALLENGES.length)];
-    await ui.dialog({
+    const retry = await ui.dialog({
       eyebrow: 'Ronda 2 · Sin intentos',
       title: 'Reto de penitencia',
-      html: '<p>Antes de volver a intentarlo, cumple este reto en voz alta:</p><p class="h3" style="margin-top:14px;color:var(--text)">«' + ui.esc(challenge) + '»</p>',
-      actions: [{ label: '¡Reto cumplido! Repartir de nuevo', value: true, variant: 'primary' }],
+      html: '<p>Cumple este reto en voz alta y vuelve a intentarlo, o sigue a la última ronda con las parejas que ya encontraste:</p><p class="h3" style="margin-top:14px;color:var(--text)">«' + ui.esc(challenge) + '»</p>',
+      actions: [{ label: 'Seguir a la ronda 3', value: false, variant: 'ghost' }, { label: '¡Reto cumplido! Repartir de nuevo', value: true, variant: 'primary' }],
       dismissible: false,
     });
-    startR2();
+    if (retry) startR2(); else finishR2(true);
   }
 
-  function finishR2() {
+  function finishR2(skipped) {
+    clearInterval(r2.timer);
+    r2.locked = true;
     const raw = Math.max(0, r2.pairs * R2.PER - r2.misses * R2.MISS);
-    results.r2 = { raw, pairs: r2.pairs, misses: r2.misses };
+    const total = r2.cards.length / 2;
+    results.r2 = { raw, pairs: r2.pairs, misses: r2.misses, skipped: !!skipped };
     between({
-      eyebrow: 'Ronda 2 completada',
-      title: r2.misses === 0 ? '¡Memoria de acero!' : '¡Todas las parejas!',
-      text: 'Encontraste las ' + r2.pairs + ' parejas con ' + ui.plural(r2.misses, 'error', 'errores') + '.',
+      eyebrow: skipped ? 'Ronda 2 terminada' : 'Ronda 2 completada',
+      title: skipped ? 'Ronda 2 terminada' : r2.misses === 0 ? '¡Memoria de acero!' : '¡Todas las parejas!',
+      text: skipped
+        ? 'Encontraste ' + r2.pairs + ' de ' + total + ' parejas. Esos puntos se conservan.'
+        : 'Encontraste las ' + r2.pairs + ' parejas con ' + ui.plural(r2.misses, 'error', 'errores') + '.',
       stats: [[toPts(raw) + ' pts', 'Ronda 2'], [r2.pairs + '', 'Parejas'], [r2.misses + '', r2.misses === 1 ? 'Error' : 'Errores']],
       next: 'Ir a la ronda 3: Ruleta',
       onNext: startR3,
@@ -412,6 +422,7 @@
     if (!reduced) for (let k = 1; k <= 26; k++) setTimeout(sfx.tick, (1 - Math.pow(1 - k / 26, 1 / 3)) * 3800);
     setTimeout(() => {
       r3.busy = false;
+      if (active !== 'r3') return;
       if (SLICES[idx] === 'pregunta') askQuestion();
       else challenge();
     }, reduced ? 300 : 4100);
@@ -511,8 +522,9 @@
   }
 
   let final = null;
-  function finishAll() {
-    results.r3 = { raw: r3.score, log: r3.log };
+  function finishAll(skipped) {
+    clearInterval(r3.timer);
+    results.r3 = { raw: r3.score, log: r3.log, skipped: !!skipped };
     const raw = results.r1.raw + results.r2.raw + results.r3.raw;
     const points = toPts(raw);
     const qOk = r3.log.filter((l) => l.ok).length;
@@ -522,12 +534,28 @@
       ['Ronda 2 · Memorama', results.r2.pairs + ' parejas · ' + ui.plural(results.r2.misses, 'error', 'errores'), results.r2.raw, MAX.r2],
       ['Ronda 3 · Ruleta', qOk + ' de ' + R3.SPINS + ' giros superados', results.r3.raw, MAX.r3],
     ].map((r) => '<li><b>' + r[0] + '</b><span class="pts">' + toPts(r[2]) + '/' + toPts(r[3]) + '</span><small>' + ui.esc(r[1]) + '</small></li>').join('');
-    final = { raw, max: MAX_RAW, detail: { r1: results.r1, r2: results.r2, r3: { raw: results.r3.raw, ok: qOk } } };
+    final = { raw, max: MAX_RAW, detail: { r1: results.r1, r2: Object.assign({ total: R2.CONCEPTS + R2.EPP }, results.r2), r3: { raw: results.r3.raw, ok: qOk, total: R3.SPINS } } };
     show('done');
     ui.animateNumber($('done-points'), points, 900);
     sfx.win();
     if (raw >= MAX_RAW * 0.8) ui.confetti(null, 80);
   }
+
+  /* ---------- Saltar ronda: un clic, se conserva lo ganado ---------- */
+  function skipRound() {
+    if (active === 'r1') finishR1(true);
+    else if (active === 'r2') finishR2(true);
+    else if (active === 'r3' && !r3.busy) finishAll(true);
+  }
+  ui.$$('.js-skip-round').forEach((b) => b.addEventListener('click', skipRound));
+
+  // Resultado parcial si se salta la etapa completa desde la barra superior.
+  journey.partial(() => {
+    if (final) return final;
+    const live = active === 'r1' ? r1.score : active === 'r2' ? Math.max(0, r2.pairs * R2.PER - r2.misses * R2.MISS) : active === 'r3' ? r3.score : 0;
+    const done = ['r1', 'r2', 'r3'].reduce((acc, k) => acc + (results[k] ? results[k].raw : 0), 0);
+    return { raw: done + (results[active] ? 0 : live), max: MAX_RAW };
+  });
 
   $('btn-start').addEventListener('click', startR1);
   $('btn-continue').addEventListener('click', () => journey.next('sena', final));

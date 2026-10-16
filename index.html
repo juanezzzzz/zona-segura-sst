@@ -7,7 +7,7 @@
   <meta name="description" content="Recorrido interactivo de Seguridad y Salud en el Trabajo: viste al trabajador con su EPP, cuida tu voz o tu respiración y supera los retos SST del SENA.">
   <meta name="theme-color" content="#12161b">
   <meta property="og:title" content="Zona Segura · Capacitación SST del SENA">
-  <meta property="og:description" content="Un recorrido de 4 etapas para aprender Seguridad y Salud en el Trabajo jugando.">
+  <meta property="og:description" content="Un recorrido corto de 4 etapas para aprender Seguridad y Salud en el Trabajo jugando.">
   <link rel="icon" type="image/png" href="assets/images/logo-sena.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,70 +21,145 @@
 
   <nav class="home-nav" aria-label="Principal">
     <span class="brand"><img src="assets/images/logo-sena.png" alt="SENA"><span>ZONA SEGURA</span></span>
-    <a class="home-nav__link" href="#recorrido">Cómo funciona</a>
+    <div class="home-nav__links">
+      <a class="home-nav__link" href="#recorrido">El recorrido</a>
+      <a class="home-nav__link" href="#ejes">Los 3 ejes</a>
+      <a class="btn btn--primary btn--sm js-cta home-nav__cta" href="games/introduccion.html">Comenzar</a>
+    </div>
   </nav>
 
   <main id="main">
+    <!-- ================= HERO ================= -->
     <header class="hero">
-      <span class="hero__tag">SENA · SEGURIDAD Y SALUD EN EL TRABAJO</span>
-      <h1 class="display hero__title">Zona <em>Segura</em></h1>
-      <p class="hero__lead">Pon a prueba tu criterio en seguridad y bienestar laboral <strong>antes de que la prueba real sea un accidente.</strong></p>
+      <div class="hero__copy">
+        <span class="hero__tag">SENA · SEGURIDAD Y SALUD EN EL TRABAJO</span>
+        <h1 class="display hero__title">Zona <em>Segura</em></h1>
+        <p class="hero__lead">Pon a prueba tu criterio en seguridad y bienestar laboral <strong>antes de que la prueba real sea un accidente.</strong></p>
 
-      <div class="hero__actions" id="hero-actions">
-        <a class="btn btn--primary btn--lg" href="games/introduccion.html" id="cta-main">Comenzar capacitación <span aria-hidden="true">→</span></a>
-        <button class="btn btn--ghost" type="button" id="cta-reset" hidden>Empezar con otra persona</button>
+        <div class="hero__actions" id="hero-actions">
+          <a class="btn btn--primary btn--lg" href="games/introduccion.html" id="cta-main">Comenzar capacitación <span aria-hidden="true">→</span></a>
+          <button class="btn btn--ghost" type="button" id="cta-reset" hidden>Empezar con otra persona</button>
+        </div>
+        <p class="hero__resume" id="hero-resume" hidden></p>
+
+        <ul class="hero__facts">
+          <li><b>4</b><span>etapas cortas</span></li>
+          <li><b>~8</b><span>minutos</span></li>
+          <li><b>1000</b><span>puntos en juego</span></li>
+        </ul>
       </div>
-      <p class="hero__resume" id="hero-resume" hidden></p>
 
-      <ul class="hero__facts">
-        <li>4 ETAPAS SEGUIDAS</li>
-        <li>~12 MINUTOS</li>
-        <li>SIN INSTALAR NADA</li>
-      </ul>
-
-      <div class="belt" aria-hidden="true">
-        <p class="belt__label">Así entra cada situación a la cinta</p>
-        <div class="belt__track"><div class="belt__items" id="belt-items"></div></div>
+      <div class="hero__art" aria-hidden="true">
+        <div class="crew">
+          <div class="crew__spot"></div>
+          <img class="crew__w crew__w--1" src="assets/images/epps/ganaderia/vestido.png" alt="">
+          <img class="crew__w crew__w--2" src="assets/images/epps/soldadura/vestido.png" alt="">
+          <img class="crew__w crew__w--3" src="assets/images/epps/cocina/vestido.png" alt="">
+          <img class="crew__w crew__w--4" src="assets/images/epps/maquinaria/vestido.png" alt="">
+          <div class="crew__floor"></div>
+          <span class="float-chip float-chip--ok"><i>✓</i>Careta de soldar</span>
+          <span class="float-chip float-chip--pts">+50 pts</span>
+          <span class="float-chip float-chip--warn"><i>!</i>¿Y los guantes?</span>
+          <div class="mini-score">
+            <span>PUNTAJE</span>
+            <b>825<small>/1000</small></b>
+            <div class="mini-score__bar"><i></i></div>
+            <em>Nivel Oro</em>
+          </div>
+        </div>
       </div>
     </header>
 
+    <!-- ================= CINTA ================= -->
+    <div class="belt" aria-hidden="true">
+      <div class="belt__inner">
+        <p class="belt__label"><span class="belt__dot"></span>Situaciones reales que vas a clasificar</p>
+        <div class="belt__track"><div class="belt__items" id="belt-items"></div></div>
+      </div>
+    </div>
+
     <div class="band">
+      <!-- ================= RECORRIDO ================= -->
       <section class="section" id="recorrido" aria-labelledby="recorrido-title">
         <div class="section__head">
           <span class="eyebrow">El recorrido</span>
-          <h2 class="h1" id="recorrido-title">Una sola capacitación, cuatro paradas</h2>
-          <p>No son juegos sueltos. Avanzas en orden, cada etapa suma a tu puntaje y al final recibes tu certificado de participación.</p>
+          <h2 class="h1" id="recorrido-title">Una capacitación, cuatro paradas</h2>
+          <p>No son juegos sueltos: avanzas en orden, cada etapa suma a tu puntaje y al final recibes tu certificado.</p>
         </div>
 
         <ol class="route">
-          <li class="route__step">
-            <span class="route__num">1</span>
-            <p class="route__time">~3 min</p>
-            <h3 class="h3">Viste al trabajador</h3>
-            <p>Elige los Elementos de Protección Personal correctos para cuatro oficios reales.</p>
+          <li class="stop stop--epp">
+            <div class="stop__art" aria-hidden="true">
+              <img src="assets/images/epps/soldadura/vestido.png" alt="">
+              <span class="stop__badge">EPP</span>
+            </div>
+            <div class="stop__body">
+              <p class="stop__meta"><span class="stop__n">Etapa 1</span><span>~2 min · 300 pts</span></p>
+              <h3 class="h3">Viste al trabajador</h3>
+              <p>Elige el equipo de protección correcto para tres oficios reales. Cada error se corrige con su explicación.</p>
+            </div>
           </li>
-          <li class="route__step">
-            <span class="route__num">2</span>
-            <p class="route__time">~2 a 4 min</p>
-            <h3 class="h3">Bienestar</h3>
-            <p>Escoge tu pausa: ejercicios de voz con micrófono o respiración guiada.</p>
+          <li class="stop stop--bien">
+            <div class="stop__art" aria-hidden="true">
+              <div class="stop__orb"></div>
+              <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="stop__body">
+              <p class="stop__meta"><span class="stop__n">Etapa 2</span><span>~2 min · 300 pts</span></p>
+              <h3 class="h3">Pausa de bienestar</h3>
+              <p>Tú eliges: ejercicios de voz con el micrófono o respiración guiada sin micrófono.</p>
+            </div>
           </li>
-          <li class="route__step">
-            <span class="route__num">3</span>
-            <p class="route__time">~5 min</p>
-            <h3 class="h3">Retos SST</h3>
-            <p>Cinta transportadora, memorama y ruleta sobre los tres ejes de la SST.</p>
+          <li class="stop stop--retos">
+            <div class="stop__art" aria-hidden="true">
+              <div class="stop__cards"><i></i><i></i><i></i></div>
+            </div>
+            <div class="stop__body">
+              <p class="stop__meta"><span class="stop__n">Etapa 3</span><span>~3 min · 400 pts</span></p>
+              <h3 class="h3">Retos SST</h3>
+              <p>Cinta transportadora, memorama y ruleta sobre los tres ejes de la seguridad en el trabajo.</p>
+            </div>
           </li>
-          <li class="route__step">
-            <span class="route__num">4</span>
-            <p class="route__time">al instante</p>
-            <h3 class="h3">Resultados</h3>
-            <p>Tu puntaje sobre 1000, logros desbloqueados y certificado para imprimir.</p>
+          <li class="stop stop--final">
+            <div class="stop__art" aria-hidden="true">
+              <div class="stop__medal">★</div>
+            </div>
+            <div class="stop__body">
+              <p class="stop__meta"><span class="stop__n">Etapa 4</span><span>al instante</span></p>
+              <h3 class="h3">Resultados y certificado</h3>
+              <p>Tu puntaje, logros desbloqueados, ranking del equipo y certificado para imprimir.</p>
+            </div>
           </li>
         </ol>
       </section>
 
-      <section class="section" style="padding-top:0" aria-labelledby="ejes-title">
+      <!-- ================= SIN PRESIÓN ================= -->
+      <section class="section section--tight" aria-labelledby="easy-title">
+        <div class="easy">
+          <div class="easy__head">
+            <span class="eyebrow">A tu ritmo</span>
+            <h2 class="h1" id="easy-title">¿Se complica? Sáltalo.</h2>
+            <p>Aquí se aprende sin presión. Si un reto se pone difícil, pasas al siguiente con un clic y conservas lo que ya ganaste.</p>
+          </div>
+          <ul class="easy__list">
+            <li>
+              <span class="easy__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l8 7-8 7V5zM17 5v14"/></svg></span>
+              <div><b>Saltar etapa o ronda</b><span>Botón siempre visible en la barra superior y en cada ronda de los retos.</span></div>
+            </li>
+            <li>
+              <span class="easy__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg></span>
+              <div><b>El error enseña</b><span>Cada respuesta incorrecta muestra la correcta y por qué.</span></div>
+            </li>
+            <li>
+              <span class="easy__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
+              <div><b>Sin cuentas ni datos</b><span>Solo tu nombre, guardado en este equipo. Nada se envía a internet.</span></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ================= EJES ================= -->
+      <section class="section" id="ejes" style="padding-top:0" aria-labelledby="ejes-title">
         <div class="section__head">
           <span class="eyebrow">La base de todo</span>
           <h2 class="h1" id="ejes-title">Los 3 ejes de la SST</h2>
@@ -93,29 +168,49 @@
         <div class="ejes">
           <article class="eje eje--higiene">
             <img src="assets/images/eje-higiene.png" alt="">
+            <span class="eje__key" aria-hidden="true">1</span>
             <h3 class="h3">Higiene y seguridad industrial</h3>
             <p>Elementos de protección, señalización y condiciones seguras del entorno.</p>
             <p class="eje__eg"><b>Ejemplo:</b> señalizar un piso mojado.</p>
           </article>
           <article class="eje eje--mental">
             <img src="assets/images/eje-mental.png" alt="">
+            <span class="eje__key" aria-hidden="true">2</span>
             <h3 class="h3">Mentalmente saludable</h3>
             <p>Bienestar emocional, convivencia y manejo del estrés en la formación.</p>
             <p class="eje__eg"><b>Ejemplo:</b> resolver un conflicto con diálogo.</p>
           </article>
           <article class="eje eje--medicina">
             <img src="assets/images/eje-medicina.png" alt="">
+            <span class="eje__key" aria-hidden="true">3</span>
             <h3 class="h3">Medicina laboral</h3>
             <p>Prevención, atención en salud y hábitos que protegen la vida.</p>
             <p class="eje__eg"><b>Ejemplo:</b> una jornada de vacunación.</p>
           </article>
         </div>
       </section>
+
+      <!-- ================= RANKING (si hay historial) ================= -->
+      <section class="section section--tight" id="podio-wrap" aria-labelledby="podio-title" hidden>
+        <div class="podium-card">
+          <div>
+            <span class="eyebrow">En este equipo</span>
+            <h2 class="h2" id="podio-title">Mejores puntajes</h2>
+            <p class="muted" id="podio-meta"></p>
+          </div>
+          <ol class="podium" id="podio"></ol>
+        </div>
+      </section>
     </div>
 
+    <!-- ================= CIERRE ================= -->
     <section class="section closing" aria-labelledby="closing-title">
-      <h2 class="h1" id="closing-title">¿Listo para tu turno en la cinta?</h2>
-      <p>Un recorrido, cuatro etapas. Cero margen para el «más o menos».</p>
+      <div class="closing__crew" aria-hidden="true">
+        <img src="assets/images/epps/cocina/vestido.png" alt="">
+        <img src="assets/images/epps/maquinaria/vestido.png" alt="">
+      </div>
+      <h2 class="h1" id="closing-title">¿Listo para tu turno?</h2>
+      <p>Ocho minutos, cuatro paradas y cero margen para el «más o menos».</p>
       <div class="actions">
         <a class="btn btn--yellow btn--lg js-cta" href="games/introduccion.html">Comenzar capacitación <span aria-hidden="true">→</span></a>
       </div>

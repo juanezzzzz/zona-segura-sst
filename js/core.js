@@ -159,6 +159,7 @@
   const reducedMotion = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const ICONS = {
+    skip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l8 7-8 7V5zM17 5v14"/></svg>',
     check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
     x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 11v6M12 7.2v.1"/></svg>',
@@ -437,6 +438,7 @@
         '<ol class="stepper" aria-label="Etapas del recorrido">' + steps + '</ol>' +
         '<div class="topbar__compact"><p class="topbar__compact-label"><span>' + (idx === 0 ? 'ANTES DE EMPEZAR' : 'ETAPA ' + idx + ' DE ' + (STAGES.length - 1)) + '</span>' + esc(stage ? stage.label : '') + '</p></div>' +
         '<div class="topbar__tools">' +
+          (stage && stage.weight > 0 ? '<button type="button" class="topbar__skip js-skip">' + ICONS.skip + '<span>Saltar etapa</span></button>' : '') +
           '<span class="score-pill" title="Puntaje del recorrido"><span class="js-total" data-value="' + points + '">' + points + '</span><small>PTS</small></span>' +
           '<button type="button" class="icon-btn js-mute"></button>' +
         '</div>' +
@@ -461,6 +463,9 @@
     muteBtn.addEventListener('click', () => ZS.sfx.setMuted(!ZS.sfx.isMuted()));
     document.addEventListener('zs:mute', paintMute);
 
+    const skipBtn = $('.js-skip', bar);
+    if (skipBtn) skipBtn.addEventListener('click', () => skipStage(stageId));
+
     const pill = $('.score-pill', bar);
     document.addEventListener('zs:change', () => {
       const next = totalPoints();
@@ -474,8 +479,32 @@
     });
   }
 
+  // Cada módulo puede registrar una función que devuelve su resultado parcial,
+  // para que al saltar la etapa se conserven los puntos ya ganados.
+  let partialFn = null;
+
+  async function skipStage(stageId) {
+    const partial = (partialFn && partialFn()) || null;
+    const stage = STAGES[stageIndex(stageId)];
+    const keep = partial ? Math.round(Math.max(0, Math.min(1, partial.raw / partial.max)) * stage.weight) : 0;
+    const ok = await dialog({
+      eyebrow: stage.label,
+      title: '¿Saltar esta etapa?',
+      text: keep > 0
+        ? 'Pasarás directo a la siguiente parada y conservas los ' + keep + ' puntos que llevas.'
+        : 'Pasarás directo a la siguiente parada. Esta etapa sumará 0 puntos, pero podrás terminar el recorrido y recibir tu certificado.',
+      actions: [{ label: 'Seguir jugando', value: false, variant: 'ghost' }, { label: 'Sí, saltar etapa', value: true, variant: 'primary' }],
+      cancelValue: false,
+    });
+    if (!ok) return;
+    const result = Object.assign({ raw: 0, max: 1 }, partial || {}, { skipped: true });
+    ZS.journey.next(stageId, result);
+  }
+
   ZS.journey = {
     href,
+    // Registra el proveedor del resultado parcial de la etapa actual.
+    partial(fn) { partialFn = fn; },
     // Llamar al inicio de cada página del recorrido.
     mount(stageId) {
       if (!guard(stageId)) return false;

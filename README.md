@@ -1,6 +1,6 @@
 # Zona Segura · Capacitación SST del SENA
 
-Recorrido interactivo de **Seguridad y Salud en el Trabajo (SST)**: cuatro etapas seguidas que terminan en un puntaje sobre 1000, logros y un certificado de participación imprimible.
+Recorrido interactivo de **Seguridad y Salud en el Trabajo (SST)**: cuatro etapas cortas (unos 8 minutos) que terminan en un puntaje sobre 1000, logros y un certificado de participación imprimible.
 
 <p align="center">
   <a href="https://juanezzzzz.github.io/zona-segura-sst/">
@@ -24,12 +24,21 @@ Recorrido interactivo de **Seguridad y Salud en el Trabajo (SST)**: cuatro etapa
 | # | Etapa | Qué se hace | Puntos |
 |---|---|---|---|
 | — | **Registro** | Nombre y rol del participante; se arma un carnet en vivo. | — |
-| 1 | **Viste al trabajador** | Elegir el EPP correcto en 5 zonas del cuerpo para 4 oficios (ganadería, cocina, soldadura, maquinaria). Cada error se corrige con su explicación. | 300 |
-| 2 | **Bienestar** | Se elige uno: **Vocal Hero** (10 ejercicios con detección de voz por micrófono) o **Respiración guiada** (5 ciclos 4-4-6-2). | 300 |
-| 3 | **Retos SST** | Cinta transportadora (clasificar 9 situaciones en los 3 ejes), memorama (6 parejas) y ruleta (preguntas o retos en vivo). | 400 |
+| 1 | **Viste al trabajador** | Elegir el EPP correcto en 5 zonas del cuerpo para 3 oficios sorteados entre ganadería, cocina, soldadura y maquinaria. Cada error se corrige con su explicación. | 300 |
+| 2 | **Bienestar** | Se elige uno: **Vocal Hero** (6 ejercicios con detección de voz por micrófono) o **Respiración guiada** (3 ciclos 4-4-6-2). | 300 |
+| 3 | **Retos SST** | Cinta transportadora (clasificar 6 situaciones en los 3 ejes), memorama (4 parejas) y ruleta (2 giros de pregunta o reto en vivo). | 400 |
 | 4 | **Resultados** | Puntaje total, nivel, desglose por etapa, logros, ranking del equipo y certificado. | — |
 
-El recorrido es **lineal**: no se puede saltar ni repetir una etapa ya completada. Al terminar, el botón *Siguiente participante* reinicia todo para la próxima persona (el ranking se conserva).
+El recorrido es **lineal**: no se puede adelantar por URL ni repetir una etapa ya completada. Al terminar, el botón *Siguiente participante* reinicia todo para la próxima persona (el ranking se conserva).
+
+### Saltar etapas y rondas
+
+Para que nadie se quede atascado:
+
+- La barra superior tiene **Saltar etapa** en EPP, Bienestar y Retos SST. Pide confirmación y conserva los puntos ya ganados en esa etapa.
+- Cada ronda de los Retos SST tiene **Saltar ronda** (un clic, sin confirmación).
+- Si se acaban las vidas en la cinta o en el memorama, se puede reintentar o seguir a la siguiente ronda con los puntos que se lleven.
+- En los resultados, la etapa saltada aparece marcada como «etapa saltada».
 
 ## Cómo ejecutarlo
 
@@ -70,10 +79,10 @@ Cada módulo calcula un puntaje crudo y `ZS.store.scale()` lo convierte a la esc
 
 | Módulo | Máximo crudo | Regla |
 |---|---|---|
-| EPP | 240 | 10 por zona correcta + 10 por oficio perfecto |
-| Vocal Hero | 350 | 10 por ejercicio + 20 sin interrupciones + 50 por rutina completa |
-| Respiración | 120 | 10 por ciclo + 20 al completar + 50 sin pausas |
-| Retos SST | 285 | Cinta 150 · Memorama 90 · Ruleta 45 |
+| EPP | 180 | 10 por zona correcta + 10 por oficio perfecto (3 oficios) |
+| Vocal Hero | 230 | 10 por ejercicio + 20 sin interrupciones + 50 por rutina completa (6 ejercicios) |
+| Respiración | 100 | 10 por ciclo + 20 al completar + 50 sin pausas (3 ciclos) |
+| Retos SST | 195 | Cinta 105 · Memorama 60 · Ruleta 30 |
 
 ### Datos
 

@@ -1,7 +1,7 @@
 /* ==========================================================
    Etapa 2 · Vocal Hero
    Puntaje crudo: 10 por ejercicio + 20 si no hubo interrupciones,
-   + 50 al completar los 10 sin saltar ninguno. Máximo: 350.
+   + 50 al completar todos sin saltar ninguno. Máximo: 6 × 30 + 50 = 230.
    ========================================================== */
 (function () {
   'use strict';
@@ -241,7 +241,7 @@
     $('st-done').textContent = completed + '/' + EX.length;
     $('st-clean').textContent = String(clean);
     $('st-time').textContent = ui.formatDuration(Date.now() - st.startedAt);
-    $('done-title').textContent = completed === EX.length ? (clean >= 8 ? '¡Maestría vocal!' : '¡Rutina completa!') : 'Buen calentamiento';
+    $('done-title').textContent = completed === EX.length ? (clean >= Math.ceil(EX.length * 0.75) ? '¡Maestría vocal!' : '¡Rutina completa!') : 'Buen calentamiento';
     $('done-text').textContent = completed === EX.length
       ? 'Completaste toda la rutina' + (clean ? ' y ' + clean + ' ejercicios sin cortes' : '') + '. Repítela antes de jornadas largas de habla.'
       : 'Completaste ' + completed + ' de ' + EX.length + ' ejercicios. Practicar a diario protege tus cuerdas vocales.';
@@ -253,8 +253,9 @@
 
   $('btn-start').addEventListener('click', startMic);
   $('btn-retry-mic').addEventListener('click', startMic);
-  $('btn-replay').addEventListener('click', () => { st.raw = 0; st.results = []; el.score.textContent = '0'; el.score.dataset.value = '0'; startMic(); });
+  $('btn-replay').addEventListener('click', () => { st.raw = 0; st.results = []; st.final = null; el.score.textContent = '0'; el.score.dataset.value = '0'; startMic(); });
   el.skip.addEventListener('click', skip);
+  journey.partial(() => st.final || { raw: st.raw, max: MAX_RAW, module: 'vocal', detail: { completed: st.results.filter((r) => r && !r.skipped).length, clean: st.results.filter((r) => r && r.clean).length, total: EX.length } });
   $('btn-continue').addEventListener('click', () => journey.next('bienestar', st.final));
   window.addEventListener('pagehide', () => audio.cleanup());
 })();

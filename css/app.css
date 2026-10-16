@@ -287,6 +287,21 @@ a { color: inherit; }
 .topbar__compact-label span { color: var(--text-inverse-2); font-family: var(--font-mono); font-weight: 700; font-size: 11px; letter-spacing: 0.08em; display: block; }
 
 .topbar__tools { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.topbar__skip {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 38px; padding: 0 14px;
+  border: 1px solid var(--ink-3); border-radius: var(--r-pill);
+  background: transparent; color: var(--text-inverse-2);
+  font: 700 13px/1 var(--font-body); cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.topbar__skip svg { width: 15px; height: 15px; }
+.topbar__skip:hover { background: var(--ink-3); color: var(--text-inverse); border-color: var(--line-strong); }
+.topbar__skip:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ink), 0 0 0 5px var(--yellow); }
+@media (max-width: 560px) {
+  .topbar__skip { padding: 0 11px; }
+  .topbar__skip span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+}
 .score-pill {
   display: inline-flex; align-items: baseline; gap: 4px;
   padding: 7px 14px;

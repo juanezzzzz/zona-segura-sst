@@ -150,21 +150,17 @@
   /* ---------- Bienestar · Vocal Hero ---------- */
   const VOCAL_EXERCISES = [
     { id: 'a', group: 'Vocales', name: 'Vocal A', sound: 'AAAA', duration: 5, tip: 'Boca bien abierta, tono firme y constante.' },
-    { id: 'e', group: 'Vocales', name: 'Vocal E', sound: 'EEEE', duration: 5, tip: 'Boca semiabierta; siente la vibración en los dientes.' },
-    { id: 'i', group: 'Vocales', name: 'Vocal I', sound: 'IIII', duration: 6, tip: 'Sonríe ligeramente y mantén el sonido estable.' },
     { id: 'o', group: 'Vocales', name: 'Vocal O', sound: 'OOOO', duration: 6, tip: 'Labios redondeados, garganta relajada.' },
-    { id: 'u', group: 'Vocales', name: 'Vocal U', sound: 'UUUU', duration: 6, tip: 'Proyecta los labios hacia afuera.' },
     { id: 'm', group: 'Resonancia', name: 'Resonancia con M', sound: 'MMMM', duration: 6, tip: 'Labios juntos y relajados; siente la vibración en la cara.' },
     { id: 's', group: 'Respiración', name: 'Inhala y suelta con S', sound: 'SSSS', duration: 6, inhale: 4, tip: 'Primero inhala por la nariz. Luego suelta el aire despacio con una S.' },
     { id: 'brr', group: 'Vibración', name: 'Vibración de labios', sound: 'BRRR', duration: 6, tip: 'Labios sueltos, deja que vibren con el aire.' },
-    { id: 'ma', group: 'Articulación', name: 'MA · ME · MI · MO · MU', sequence: ['MA', 'ME', 'MI', 'MO', 'MU'], duration: 5, tip: 'Una sílaba por segundo, abriendo bien la boca.' },
     { id: 'pa', group: 'Articulación', name: 'PA · TA · KA', sequence: ['PA', 'TA', 'KA'], duration: 4.5, tip: 'Articula con energía, apoyando desde el abdomen.' },
   ];
 
   /* ---------- Bienestar · Respiración guiada ---------- */
   const BREATHING = {
     name: 'Respiración cuadrada 4-4-6-2',
-    cycles: 5,
+    cycles: 3,
     phases: [
       { key: 'inhale', label: 'Inhala', hint: 'Lentamente por la nariz', duration: 4, from: 0.45, to: 1, tone: 392 },
       { key: 'hold', label: 'Sostén', hint: 'Mantén el aire, hombros sueltos', duration: 4, from: 1, to: 1, tone: 440 },

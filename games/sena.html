@@ -22,16 +22,17 @@
           <div>
             <span class="eyebrow">Etapa 3 · Zona Segura SENA</span>
             <h1 class="h1" style="margin-top:10px">Retos SST</h1>
-            <p class="lead" style="margin-top:12px">Tres rondas para demostrar que reconoces los ejes de la Seguridad y Salud en el Trabajo en situaciones reales.</p>
+            <p class="lead" style="margin-top:12px">Tres rondas cortas para demostrar que reconoces los ejes de la Seguridad y Salud en el Trabajo en situaciones reales.</p>
             <ol class="rounds-overview">
-              <li><span class="n">1</span><span><b>Cinta transportadora</b><span>Clasifica cada situación en su eje antes de que se acabe el tiempo.</span></span><span class="chip">9 situaciones</span></li>
-              <li><span class="n">2</span><span><b>Memorama</b><span>Memoriza las cartas y encuentra cada pareja.</span></span><span class="chip">6 parejas</span></li>
-              <li><span class="n">3</span><span><b>Ruleta</b><span>Pregunta rápida o reto en vivo: ambos valen igual.</span></span><span class="chip">3 giros</span></li>
+              <li><span class="n">1</span><span><b>Cinta transportadora</b><span>Clasifica cada situación en su eje antes de que se acabe el tiempo.</span></span><span class="chip">6 situaciones</span></li>
+              <li><span class="n">2</span><span><b>Memorama</b><span>Memoriza las cartas y encuentra cada pareja.</span></span><span class="chip">4 parejas</span></li>
+              <li><span class="n">3</span><span><b>Ruleta</b><span>Pregunta rápida o reto en vivo: ambos valen igual.</span></span><span class="chip">2 giros</span></li>
             </ol>
             <div class="actions">
               <button class="btn btn--primary btn--lg" type="button" id="btn-start">Empezar ronda 1 <span aria-hidden="true">→</span></button>
-              <span class="chip">~5 minutos</span>
+              <span class="chip">~3 minutos</span>
             </div>
+            <p class="muted skip-note">¿Se complica? Cada ronda tiene un botón <b>Saltar ronda</b> y conservas lo que hayas ganado.</p>
           </div>
           <div class="intro-card__art ejes-art" aria-hidden="true">
             <img src="../assets/images/eje-higiene.png" alt="">
@@ -45,13 +46,14 @@
       <section data-screen="r1" hidden>
         <div class="module-head">
           <div class="module-head__text">
-            <span class="eyebrow" id="r1-eyebrow">Ronda 1 · Situación 1 de 9</span>
+            <span class="eyebrow" id="r1-eyebrow">Ronda 1 · Situación 1 de 6</span>
             <h1 class="h1">Cinta transportadora</h1>
           </div>
           <div class="hud">
             <div class="hud__item"><span class="hud__label">Vidas</span><span class="lives" id="r1-lives"></span></div>
             <div class="hud__item"><span class="hud__label">Racha</span><span class="hud__value" id="r1-streak">0</span></div>
             <div class="hud__item"><span class="hud__label">Puntos</span><span class="hud__value" id="r1-score">0</span></div>
+            <button class="btn btn--ghost btn--sm skip-round js-skip-round" type="button">Saltar ronda <span aria-hidden="true">⏭</span></button>
           </div>
         </div>
         <div class="conveyor" id="conveyor">
@@ -72,7 +74,8 @@
           </div>
           <div class="hud">
             <div class="hud__item"><span class="hud__label">Errores</span><span class="lives" id="r2-lives"></span></div>
-            <div class="hud__item"><span class="hud__label">Parejas</span><span class="hud__value" id="r2-pairs">0/6</span></div>
+            <div class="hud__item"><span class="hud__label">Parejas</span><span class="hud__value" id="r2-pairs">0/4</span></div>
+            <button class="btn btn--ghost btn--sm skip-round js-skip-round" type="button">Saltar ronda <span aria-hidden="true">⏭</span></button>
           </div>
         </div>
         <div class="memo-bar">
@@ -92,6 +95,7 @@
           </div>
           <div class="hud">
             <div class="hud__item"><span class="hud__label">Puntos</span><span class="hud__value" id="r3-score">0</span></div>
+            <button class="btn btn--ghost btn--sm skip-round js-skip-round" type="button">Saltar ronda <span aria-hidden="true">⏭</span></button>
           </div>
         </div>
         <div class="wheel-layout">

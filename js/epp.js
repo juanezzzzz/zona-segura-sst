@@ -1,14 +1,16 @@
 /* ==========================================================
    Etapa 1 · Viste al trabajador
    Puntaje crudo: 10 por zona correcta + 10 por oficio perfecto.
-   Máximo: 4 oficios × (5 × 10 + 10) = 240.
+   Se juegan 3 oficios al azar de los 4 disponibles.
+   Máximo: 3 oficios × (5 × 10 + 10) = 180.
    ========================================================== */
 (function () {
   'use strict';
   const { store, ui, data, journey, sfx } = window.ZS;
   if (!journey.mount('epp')) return;
 
-  const AREAS = data.EPP_AREAS;
+  const AREAS_PER_RUN = 3;
+  const AREAS = ui.shuffle(data.EPP_AREAS).slice(0, AREAS_PER_RUN);
   const ZONES = data.BODY_ZONES;
   const ITEMS = data.EPP_ITEMS;
   const PER_ZONE = 10;
@@ -232,7 +234,7 @@
     const perfect = st.results.filter((r) => r.perfect).length;
     const points = toPts(st.raw);
     $('done-points').textContent = '0';
-    $('done-title').textContent = perfect === AREAS.length ? '¡Equipos impecables!' : st.correct >= 15 ? '¡Buen ojo para el riesgo!' : 'Hay EPP por repasar';
+    $('done-title').textContent = perfect === AREAS.length ? '¡Equipos impecables!' : st.correct >= AREAS.length * ZONES.length * 0.75 ? '¡Buen ojo para el riesgo!' : 'Hay EPP por repasar';
     $('done-text').textContent = 'Acertaste ' + st.correct + ' de ' + AREAS.length * ZONES.length + ' zonas y vestiste perfecto a ' + perfect + ' de ' + AREAS.length + ' compañeros.';
     $('done-areas').innerHTML = st.results.map((r) =>
       '<li><span>' + (r.perfect ? '✅ ' : '🟡 ') + ui.esc(r.name) + '</span><span>' + r.correct + '/' + ZONES.length + '</span></li>'
@@ -240,16 +242,16 @@
     ui.showScreen('done');
     ui.animateNumber($('done-points'), points, 900);
     sfx.win();
-    if (perfect >= 3) ui.confetti(null, 70);
+    if (perfect >= 2) ui.confetti(null, 70);
   }
 
   $('btn-start').addEventListener('click', () => { loadArea(); ui.showScreen('play'); });
   el.check.addEventListener('click', check);
   el.next.addEventListener('click', next);
-  $('btn-continue').addEventListener('click', () => {
-    journey.next('epp', {
-      raw: st.raw, max: MAX_RAW,
-      detail: { correct: st.correct, total: AREAS.length * ZONES.length, perfect: st.results.filter((r) => r.perfect).length },
-    });
+  const result = () => ({
+    raw: st.raw, max: MAX_RAW,
+    detail: { correct: st.correct, total: AREAS.length * ZONES.length, perfect: st.results.filter((r) => r.perfect).length },
   });
+  journey.partial(result);
+  $('btn-continue').addEventListener('click', () => journey.next('epp', result()));
 })();

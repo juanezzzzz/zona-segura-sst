@@ -44,12 +44,14 @@
 
   // ---------- Desglose ----------
   const bienestar = res.bienestar || {};
+  const sd = res.sena && res.sena.detail;
+  const skippedNote = (id, sub) => (res[id] && res[id].skipped ? (sub ? sub + ' · etapa saltada' : 'Etapa saltada') : sub);
   const rows = [
     { id: 'epp', label: 'Viste al trabajador', sub: res.epp && res.epp.detail ? res.epp.detail.correct + ' de ' + res.epp.detail.total + ' zonas correctas' : '' },
-    { id: 'bienestar', label: bienestar.module === 'vocal' ? 'Bienestar · Vocal Hero' : 'Bienestar · Respiración guiada',
+    { id: 'bienestar', label: bienestar.module === 'vocal' ? 'Bienestar · Vocal Hero' : bienestar.module === 'respiracion' ? 'Bienestar · Respiración guiada' : 'Bienestar',
       sub: bienestar.detail ? (bienestar.module === 'vocal' ? bienestar.detail.completed + ' de ' + bienestar.detail.total + ' ejercicios' : bienestar.detail.cycles + ' ciclos · ' + ui.plural(bienestar.detail.pauses, 'pausa', 'pausas')) : '' },
-    { id: 'sena', label: 'Retos SST', sub: res.sena && res.sena.detail ? 'Cinta ' + res.sena.detail.r1.correct + '/' + res.sena.detail.r1.total + ' · Memorama ' + ui.plural(res.sena.detail.r2.misses, 'error', 'errores') + ' · Ruleta ' + res.sena.detail.r3.ok + '/3' : '' },
-  ];
+    { id: 'sena', label: 'Retos SST', sub: sd && sd.r1 ? 'Cinta ' + sd.r1.correct + '/' + sd.r1.total + ' · Memorama ' + sd.r2.pairs + '/' + (sd.r2.total || 4) + ' parejas · Ruleta ' + sd.r3.ok + '/' + (sd.r3.total || 2) : '' },
+  ].map((r) => Object.assign(r, { sub: skippedNote(r.id, r.sub) }));
   $('breakdown').innerHTML = rows.map((r) => {
     const weight = store.STAGES[store.stageIndex(r.id)].weight;
     const pts = store.stagePoints(r.id, s);
@@ -63,12 +65,12 @@
   const d = (id) => (res[id] && res[id].detail) || {};
   const ACH = [
     { icon: '🏁', label: 'Recorrido completo', desc: 'Terminaste las 4 etapas.', on: true },
-    { icon: '🦺', label: 'Ojo de inspector', desc: 'Vestiste perfecto a 3 o más trabajadores.', on: (d('epp').perfect || 0) >= 3 },
-    { icon: bienestar.module === 'vocal' ? '🎤' : '🌿', label: bienestar.module === 'vocal' ? 'Voz de líder' : 'Calma total', desc: bienestar.module === 'vocal' ? 'Completaste la rutina vocal entera.' : 'Respiraste 5 ciclos sin pausar.', on: ratio('bienestar') >= 0.99 || (bienestar.module === 'vocal' && d('bienestar').completed === d('bienestar').total) },
+    { icon: '🦺', label: 'Ojo de inspector', desc: 'Vestiste perfecto a todos los trabajadores.', on: !!d('epp').total && (d('epp').perfect || 0) * 5 >= d('epp').total },
+    { icon: bienestar.module === 'vocal' ? '🎤' : '🌿', label: bienestar.module === 'vocal' ? 'Voz de líder' : 'Calma total', desc: bienestar.module === 'vocal' ? 'Completaste la rutina vocal entera.' : 'Respiraste los 3 ciclos sin pausar.', on: ratio('bienestar') >= 0.99 || (bienestar.module === 'vocal' && d('bienestar').completed === d('bienestar').total) },
     { icon: '🎯', label: 'Clasificador experto', desc: 'Cinta sin un solo error.', on: !!(d('sena').r1 && d('sena').r1.correct === d('sena').r1.total) },
     { icon: '🧠', label: 'Memoria de acero', desc: 'Memorama sin errores.', on: !!(d('sena').r2 && d('sena').r2.misses === 0) },
     { icon: '🌟', label: 'Sobresaliente', desc: '800 puntos o más.', on: total >= 800 },
-    { icon: '⚡', label: 'A buen ritmo', desc: 'Recorrido en menos de 12 minutos.', on: elapsed > 0 && elapsed < 12 * 60 * 1000 },
+    { icon: '⚡', label: 'A buen ritmo', desc: 'Recorrido en menos de 8 minutos.', on: elapsed > 0 && elapsed < 8 * 60 * 1000 },
   ];
   $('achievements').innerHTML = ACH.map((a) =>
     '<div class="ach' + (a.on ? ' is-on' : '') + '"><div class="ach__icon" aria-hidden="true">' + a.icon + '</div><b>' + ui.esc(a.label) + '</b><small>' + ui.esc(a.desc) + '</small>' +

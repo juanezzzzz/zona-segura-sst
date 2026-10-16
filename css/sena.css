@@ -202,3 +202,9 @@
 .round-summary b { font-weight: 800; }
 .round-summary small { grid-column: 1; color: var(--text-3); font-size: 13.5px; }
 .round-summary .pts { grid-row: span 2; align-self: center; font-family: var(--font-mono); font-weight: 700; }
+
+/* Saltar ronda */
+.skip-round { align-self: stretch; min-height: 0; border: 1px dashed var(--line-strong); --btn-fg: var(--text-2); }
+.skip-round:hover { --btn-bg: var(--paper-2); --btn-fg: var(--text); }
+.skip-note { margin-top: 16px; font-size: 14px; }
+.skip-note b { color: var(--text); }
